@@ -1,0 +1,103 @@
+<div class="container">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">Template List</h3>
+        </div>
+        <div class="panel-body">
+            <fieldset>
+                <legend>Group Info</legend>
+                <form role="form">
+                    <div class="row">
+
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <label>Please Select your group</label>
+                                <select class="form-control" ng-model="tempListCtrl.selectedGroupID"
+                                        ng-change="tempListCtrl.getGroupTemplates()">
+                                    <option ng-repeat="group in tempListCtrl.groups | orderBy:'id'"
+                                            value="{{group.id}}">
+                                        {{group.name}}
+                                    </option>
+                                </select>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </form>
+            </fieldset>
+
+            <fieldset>
+                <legend>Template List</legend>
+                <form role="form">
+                    <div>
+
+
+                        <table class="table table-striped" ng-model="tempListCtrl.templates">
+                            <thead>
+                            <tr>
+                                <th>Template ID</th>
+                                <th>Template Name</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="template in tempListCtrl.templates | orderBy:'id'">
+                                <td>{{template.id}}</td>
+                                <td>
+                                    <a href="#" ng-click="tempListCtrl.getTemplateAttributes(template)">{{template.name}}</a>
+                                </td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+
+
+                    </div>
+
+                </form>
+            </fieldset>
+        </div>
+    </div>
+
+
+    <div class="panel panel-default" ng-if="tempListCtrl.attributes.length > 0">
+        <div class="panel-heading">
+            <h3 class="panel-title">Attribute List</h3>
+        </div>
+        <div class="panel-body" ng-model="tempListCtrl.selectedTemplate">
+            <fieldset>
+                <legend>Template: {{tempListCtrl.selectedTemplate.name}}</legend>
+                <form role="form">
+                    <div>
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th>Attribute ID</th>
+                                <th>Attribute Name</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="attribute in tempListCtrl.attributes | orderBy:'id'">
+                                <td>{{attribute.id}}</td>
+                                <td>{{attribute.name}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+
+                </form>
+            </fieldset>
+
+
+        </div>
+
+    </div>
+</div>
+
+
+
+
+
+
+
