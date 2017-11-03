@@ -87,34 +87,33 @@
         <!--this is for the action of filling form-->
         <div class="panel-body" ng-if="NICLCtrl.showFormFlag">
 
+         <table class="table resultform" style="margin-top: 15px;">
+                <thead>
+                <tr class="title">
+                    <th colspan="4"><h1 class="panel-title">New Investment Checklist: {{NICLCtrl.newNICLHead.name}}</h1></th>
+                </tr>
+                <tr >
+                    <th colspan="4" >Please Fill The Form Below</th>
+                </tr>
+                </thead>
+                <tbody ng-repeat="content in  NICLCtrl.NICLContentList |orderBy:'id'" >
 
-                    <table class="table resultform" style="margin-top: 15px;">
-                        <thead>
-                        <tr class="title">
-                            <th colspan="4"><h1 class="panel-title">New Investment Checklist: {{NICLCtrl.newNICLHead.name}}</h1></th>
-                        </tr>
-                        <tr >
-                            <th colspan="4" >Please Fill The Form Below</th>
-                        </tr>
-                        </thead>
-                        <tbody ng-repeat="attribute in  NICLCtrl.selectedTemplate.attributes |orderBy:'id'" >
+                <tr ng-if="$even">
+                    <td style="background-color: darkgrey; font-weight:bold;">{{NICLCtrl.NICLContentList[$index].attribute.name}} </td>
 
-                        <tr ng-if="$even">
-                            <td style="background-color: darkgrey; font-weight:bold;">{{NICLCtrl.selectedTemplate.attributes[$index].name}} </td>
-                            <td> <input ng-model="NICLCtrl.newAttributeList[NICLCtrl.selectedTemplate.attributes[$index].id]" class="form-control" type="text"
-                                        placeholder="Please Enter {{NICLCtrl.selectedTemplate.attributes[$index].name}} value">
-                                </td>
-                            <td style="background-color: darkgrey;font-weight:bold;">{{NICLCtrl.selectedTemplate.attributes[$index+1].name}} </td>
-                            <td> <input ng-model="NICLCtrl.newAttributeList[NICLCtrl.selectedTemplate.attributes[$index+1].id]" class="form-control" type="text"
-                                        placeholder="Please Enter {{NICLCtrl.selectedTemplate.attributes[$index+1].name}} value"></td>
-                        </tr>
+                    <td> <input ng-model="NICLCtrl.NICLContentList[$index].value" class="form-control" type="text"
+                                placeholder="Please Enter {{NICLCtrl.NICLContentList[$index].attribute.name}} value">
+                    </td>
+                    <td style="background-color: darkgrey;font-weight:bold;">{{NICLCtrl.NICLContentList[$index+1].attribute.name}}} </td>
+                    <td> <input ng-model="NICLCtrl.NICLContentList[$index+1].value" class="form-control" type="text"
+                                placeholder="Please Enter {{NICLCtrl.NICLContentList[$index+1].attribute.name}} value"></td>
+                </tr>
 
-                        </tbody>
-                    </table>
+                </tbody>
+            </table>
                     <button type="submit" class="btn btn-primary" ng-click="NICLCtrl.printList()">Confirm</button>
                     <button type="reset" value="Reset" ng-click="NICLCtrl.reset()" class="btn btn-default">Reset</button>
                     <button type="reset" class="btn btn-default" value="Reset" ng-click="NICLCtrl.goBack()">Go Back</button>
-
 
         </div>
         <!--this is for the overview of filling form-->
@@ -128,13 +127,13 @@
                     <th colspan="4" >OVERVIEW</th>
                 </tr>
                 </thead>
-                <tbody ng-repeat="attribute in  NICLCtrl.selectedTemplate.attributes |orderBy:'id'" >
+                <tbody ng-repeat="content in  NICLCtrl.NICLContentList |orderBy:'id'" >
 
                 <tr ng-if="$even">
-                    <td style="background-color: darkgrey; font-weight:bold;">{{NICLCtrl.selectedTemplate.attributes[$index].name}} </td>
-                    <td>{{NICLCtrl.newAttributeList[NICLCtrl.selectedTemplate.attributes[$index].id]}}</td>
-                    <td style="background-color: darkgrey;font-weight:bold;">{{NICLCtrl.selectedTemplate.attributes[$index+1].name}} </td>
-                    <td>{{NICLCtrl.newAttributeList[NICLCtrl.selectedTemplate.attributes[$index+1].id]}}</td>
+                    <td style="background-color: darkgrey; font-weight:bold;">{{NICLCtrl.NICLContentList[$index].attribute.name}}</td>
+                    <td>{{NICLCtrl.NICLContentList[$index+1].value}}</td>
+                    <td style="background-color: darkgrey;font-weight:bold;">{{NICLCtrl.NICLContentList[$index+1].attribute.name}} </td>
+                    <td>{{NICLCtrl.NICLContentList[$index+1].value}}</td>
                 </tr>
 
                 </tbody>

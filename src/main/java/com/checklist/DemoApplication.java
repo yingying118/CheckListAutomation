@@ -75,10 +75,10 @@ public class DemoApplication implements CommandLineRunner{
 
         Set templateAs = new HashSet<Template>() {{
             add(t1);
-            add(t2);
+
         }};
         Set templatePIC = new HashSet<Template>() {{
-            add(t1);
+            add(t2);
         }};
 
         a1.setTemplates(templateAs);

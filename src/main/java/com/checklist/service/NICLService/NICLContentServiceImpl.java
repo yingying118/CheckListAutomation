@@ -30,7 +30,6 @@ public class NICLContentServiceImpl implements NICLContentService{
     public void saveNICLContent(NICLContent niclContent) {
 
         NICLContent toSave = new NICLContent(niclContent.getValue(),niclContent.getAttributeID(),niclContent.getAttribute());
-        //NICLContent toSave = new NICLContent(niclContent.getValue(),niclContent.getAttribute());
         niclContentRepository.save(toSave);
         NICLHead head = niclHeadService.findNICLHeadByName(niclContent.getNiclHead().getName());
         toSave.setNiclHead(head);
@@ -38,13 +37,9 @@ public class NICLContentServiceImpl implements NICLContentService{
     }
 
     @Override
-    public List<NICLContent> findAllNICLContentByHeadID(Long niclHeadID) {
-        List<NICLContent> searchResult= new ArrayList<NICLContent>();
-        for(NICLContent content:niclContentRepository.findAll()){
-            if(content.getNiclHead().getId()==niclHeadID){}
-            searchResult.add(content);
-        }
-        return searchResult;
+    public Set<NICLContent> findAllNICLContentByHeadID(Long niclHeadID) {
+        return niclHeadService.findNICLHeadByID(niclHeadID).getNICLContents();
+
     }
     @Override
     public Set<NICLContent> findAllNICLContentWithoutValueByHeadID(Long niclHeadID) {

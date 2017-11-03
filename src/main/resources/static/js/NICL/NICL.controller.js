@@ -27,8 +27,7 @@
         self.showFormFlag = false;
         self.showResultFlag = false;
         self.newAttributeList = {};
-        self.contentList = [];
-        self.NICLContentListWithoutValue=[];
+        self.NICLContentList=[];
         getAllGroups();
 
         this.getGroupTemplates = getGroupTemplates;
@@ -50,22 +49,13 @@
          */
 
         function printList() {
-            console.log('new attributelist content:' + JSON.stringify(self.newAttributeList))
-            for (var key in self.newAttributeList) {
-                var contentObject = {};
-                contentObject.niclHead = self.newNICLHead;
-                contentObject.attributeID = key;
-                contentObject.attribute =
-                contentObject.value = self.newAttributeList[key];
-                self.contentList.push(contentObject);
-            }
             self.showResultFlag = true;
             self.showFormFlag = false;
 
           }
 
         function submitContent(){
-            NICLService.createNICLContentSet(self.contentList).then(
+            NICLService.createNICLContentSet(self.NICLContentList).then(
 
                 function (response) {
                     goBack();
@@ -78,7 +68,7 @@
         function backToForm() {
             self.showResultFlag = false;
             self.showFormFlag = true;
-            self.contentList = [];
+            self.NICLContentList = [];
 
         }
 
@@ -92,8 +82,7 @@
         }
 
         function reset() {
-            self.newAttributeList = {};
-            self.contentList = [];
+            self.NICLContentList = [];
 
         }
 
@@ -108,8 +97,7 @@
             self.showResultFlag = false;
             self.disableFlag = false;
             self.checkAttributes = [];
-            self.newAttributeList = {};
-            self.contentList = [];
+            self.NICLContentList = [];
 
         }
 
@@ -176,10 +164,10 @@
         function getNICLContentWithoutValueByHeadID(headID){
             console.log("fetching NICLContent Without Value" + headID);
             NICLService.getNICLContentWithoutValueByHeadID(headID).then(function (response) {
-                self.NICLContentListWithoutValue = response.data;
+                self.NICLContentList = response.data;
                 console.log("content list with value:" + headID);
                 console.log("fetching NICLContent without value assigned done");
-                console.log('NICLContentListWithoutValue: ' + JSON.stringify(self.NICLContentListWithoutValue));
+                console.log('NICLContentListWithoutValue: ' + JSON.stringify(self.NICLContentList));
 
             }, function (errResponse) {
                 console.error('Error while fetching NICLContent without value assigned done : ' + self.createdNICLHead.id + ';' + errResponse.toString());
