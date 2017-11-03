@@ -4,6 +4,7 @@ import javax.persistence.*;
 
 /**
  * Created by azhang on 30/10/2017.
+ * this is for predefined attribute value pool
  */
 @Entity
 @Table(name = "AttributeValuePool")

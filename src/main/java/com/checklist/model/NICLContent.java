@@ -23,19 +23,22 @@ public class NICLContent {
         this.attributeID = attributeID;
     }
 
-
-    private Attribute attribute;
     private Long attributeID;
-
+    @ManyToOne
+    @JoinColumn(name = "aid")
+    private Attribute attribute;
     /**===================constructors ==================================**/
     public NICLContent(String value, Long attributeID) {
         this.value = value;
         this.attributeID = attributeID;
     }
-    public NICLContent(String value, Attribute attribute){
-        this.value=value;
-        this.attribute=attribute;
+
+    public NICLContent(String value, Long attributeID, Attribute attribute) {
+        this.value = value;
+        this.attributeID = attributeID;
+        this.attribute = attribute;
     }
+
     public NICLContent(){
         super();
     }
@@ -63,13 +66,6 @@ public class NICLContent {
         this.value = value;
     }
 
-    public Attribute getAttribute() {
-        return attribute;
-    }
-
-    public void setAttribute(Attribute attribute) {
-        this.attribute = attribute;
-    }
 
     public NICLHead getNiclHead() {
         return niclHead;
@@ -78,5 +74,11 @@ public class NICLContent {
         this.niclHead = niclHead;
     }
 
+    public Attribute getAttribute() {
+        return attribute;
+    }
 
+    public void setAttribute(Attribute attribute) {
+        this.attribute = attribute;
+    }
 }

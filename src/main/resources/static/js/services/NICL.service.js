@@ -29,6 +29,8 @@
             changeView:changeView,
             getNICLHeadByGroupID:getNICLHeadByGroupID,
             getNICLContentByHeadID:getNICLContentByHeadID,
+            getNICLContentWithoutValueByHeadID:getNICLContentWithoutValueByHeadID,
+
         };
 
         return services;
@@ -112,9 +114,15 @@
             return $http.get(url);
 
         }
-        function getNICLHeadByGroupID(hid){
+        function getNICLContentByHeadID(hid){
             console.log('get NICLContent with hid: ' + hid);
             var url = urlBase + '/getniclcontentbyhid/' + hid;
+            return $http.get(url);
+        }
+
+        function getNICLContentWithoutValueByHeadID(hid){
+            console.log('get NICLContent with hid: ' + hid);
+            var url = urlBase + '/getniclcontentwithoutvaluebyhid/' + hid;
             return $http.get(url);
         }
 

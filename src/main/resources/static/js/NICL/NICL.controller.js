@@ -21,13 +21,14 @@
         self.selectedTemplate = {};
 
         self.newNICLHead = {};
+        self.createdNICLHead={};
         self.checkAttributes = [];
         self.disableFlag = false;
         self.showFormFlag = false;
         self.showResultFlag = false;
         self.newAttributeList = {};
         self.contentList = [];
-
+        self.NICLContentListWithoutValue=[];
         getAllGroups();
 
         this.getGroupTemplates = getGroupTemplates;
@@ -99,6 +100,7 @@
         function goBack() {
             self.selectedGroupID = null;
             self.newNICLHead = {};
+            self.createdNICLHead={}
             self.templates = [];
             self.selectedTemplateID = null;
             self.selectedTemplate = {};
@@ -115,11 +117,16 @@
             self.newNICLHead.template = self.selectedTemplate;
         }
 
+
         function createNewNIClHead() {
 
             NICLService.createNICLHead(self.newNICLHead).then(
                 function (response) {
+                    self.createdNICLHead=response.data;
+                    console.log('createdNICLHead with hid: ' + self.createdNICLHead.id );
+
                     console.log('new NICLHead created!' );
+                    getNICLContentWithoutValueByHeadID(self.createdNICLHead.id );
                 },
                 function (errResponse) {
                     console.error('Error while creating NICLHead: ' + errResponse.data.message);
@@ -164,6 +171,21 @@
         /**
          * Private functions
          */
+
+
+        function getNICLContentWithoutValueByHeadID(headID){
+            console.log("fetching NICLContent Without Value" + headID);
+            NICLService.getNICLContentWithoutValueByHeadID(headID).then(function (response) {
+                self.NICLContentListWithoutValue = response.data;
+                console.log("content list with value:" + headID);
+                console.log("fetching NICLContent without value assigned done");
+                console.log('NICLContentListWithoutValue: ' + JSON.stringify(self.NICLContentListWithoutValue));
+
+            }, function (errResponse) {
+                console.error('Error while fetching NICLContent without value assigned done : ' + self.createdNICLHead.id + ';' + errResponse.toString());
+            })
+
+        }
 
         function getAllGroups() {
             NICLService.getGroups().then(function (response) {

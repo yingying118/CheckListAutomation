@@ -25,8 +25,19 @@ public class Attribute {
     @OneToMany(mappedBy = "attribute",cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     private Set<AttributeValue> attributeValues;
 
+    @OneToMany(mappedBy = "attribute",cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    private Set<NICLContent> niclContentSet;
 
     /*---------------getter and setter ------------------*/
+
+    public Set<NICLContent> getNiclContentSet() {
+        return niclContentSet;
+    }
+    @JsonIgnore
+    public void setNiclContentSet(Set<NICLContent> niclContentSet) {
+        this.niclContentSet = niclContentSet;
+    }
+
     public Set<AttributeValue> getAttributeValues() {
         return attributeValues;
     }

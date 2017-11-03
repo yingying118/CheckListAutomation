@@ -30,8 +30,8 @@ public class RestNICLController {
     NICLContentService niclContentService;
     /**---------------------CRUD funcs----------------------**/
     @RequestMapping(value="/createniclhead", method = RequestMethod.POST)
-    public void createNICLHead(@RequestBody NICLHead niclHead){
-        niclHeadService.saveNICLHead(niclHead);
+    public NICLHead createNICLHead(@RequestBody NICLHead niclHead){
+        return niclHeadService.saveNICLHead(niclHead);
     }
     @RequestMapping(value="/createniclcontent",method = RequestMethod.POST)
     public void createNICLHead(@RequestBody NICLContent niclContent){
@@ -78,10 +78,12 @@ public class RestNICLController {
     public String getTemplateName(@PathVariable("tid") Long id){
         return templateService.findTemplateByID(id).getName();
     }
-    @RequestMapping(value="/getniclcontentbyhid/{hid}", method=RequestMethod.GET)
-    public List<NICLContent> getNICLContentSet(@PathVariable("hid") Long id){
-        return niclContentService.findAllNICLContentByHeadID(id);
+    @RequestMapping(value="/getniclcontentwithoutvaluebyhid/{hid}", method=RequestMethod.GET)
+    public Set<NICLContent> getNICLContentSetWithoutValueByHeadID(@PathVariable("hid") Long id){
+        return niclContentService.findAllNICLContentWithoutValueByHeadID(id);
     }
+
+
 
 
 }
