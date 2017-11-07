@@ -92,14 +92,13 @@
 
                         <tr ng-if="$even">
                             <td style="background-color: darkgrey; font-weight:bold;">{{NICLListCtrl.seletedNICLContentList[$index].attribute.name}}</td>
-                            <td>{{NICLListCtrl.seletedNICLContentList[$index+1].value}}</td>
+                            <td>{{NICLListCtrl.seletedNICLContentList[$index].value}}</td>
                             <td style="background-color: darkgrey;font-weight:bold;">{{NICLListCtrl.seletedNICLContentList[$index+1].attribute.name}} </td>
                             <td>{{NICLListCtrl.seletedNICLContentList[$index+1].value}}</td>
                         </tr>
 
                         </tbody>
                     </table>
-                    <pre>{{NICLListCtrl.seletedNICLContentList|json}}</pre>
 
                 </div>
 

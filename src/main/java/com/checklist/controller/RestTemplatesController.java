@@ -54,4 +54,7 @@ String base = "http://localhost:8080";
     public Set<Attribute> getTemplateAttributes(@PathVariable("tid") Long id){
        return templateService.findTemplateByID(id).getAttributes();
     }
+
+
+
 }

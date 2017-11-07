@@ -1,5 +1,7 @@
 package com.checklist.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.naming.directory.AttributeInUseException;
 import javax.persistence.*;
 
@@ -14,28 +16,18 @@ public class NICLContent {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String value;
-
-    public Long getAttributeID() {
-        return attributeID;
-    }
-
-    public void setAttributeID(Long attributeID) {
-        this.attributeID = attributeID;
-    }
-
-    private Long attributeID;
     @ManyToOne
     @JoinColumn(name = "aid")
     private Attribute attribute;
+
+
     /**===================constructors ==================================**/
-    public NICLContent(String value, Long attributeID) {
+    public NICLContent(String value) {
         this.value = value;
-        this.attributeID = attributeID;
     }
 
-    public NICLContent(String value, Long attributeID, Attribute attribute) {
+    public NICLContent(String value, Attribute attribute) {
         this.value = value;
-        this.attributeID = attributeID;
         this.attribute = attribute;
     }
 
@@ -49,7 +41,6 @@ public class NICLContent {
     private NICLHead niclHead;
 
     /**===================getter and setter ==================================**/
-
     public Long getId() {
         return id;
     }
@@ -70,6 +61,7 @@ public class NICLContent {
     public NICLHead getNiclHead() {
         return niclHead;
     }
+
     public void setNiclHead(NICLHead niclHead) {
         this.niclHead = niclHead;
     }

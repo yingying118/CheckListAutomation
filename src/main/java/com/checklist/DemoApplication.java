@@ -81,25 +81,27 @@ public class DemoApplication implements CommandLineRunner{
             add(t2);
         }};
 
-        a1.setTemplates(templateAs);
-        a2.setTemplates(templateAs);
+        a1.setTemplates(templatePIC);
+        a2.setTemplates(templatePIC);
         a3.setTemplates(templateAs);
         a4.setTemplates(templateAs);
         a5.setTemplates(templateAs);
         a6.setTemplates(templateAs);
         a7.setTemplates(templateAs);
         a8.setTemplates(templateAs);
-        a9.setTemplates(templatePIC);
-        a10.setTemplates(templatePIC);
+        a9.setTemplates(templateAs);
+        a10.setTemplates(templateAs);
 
 
 
         AttributeValue a1value1= new AttributeValue("report name 1", a1);
         AttributeValue a1value2= new AttributeValue("report name 2", a1);
+        AttributeValue a2value1= new AttributeValue("CPPIB", a2);
         //AttributeValue a2value1= new AttributeValue("cppib ", a2);
 
         attributeValueRepository.save(a1value1);
         attributeValueRepository.save(a1value2);
+        attributeValueRepository.save(a2value1);
         //attributeValueRepository.save(a2value1);
 
     }

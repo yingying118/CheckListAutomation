@@ -1,5 +1,7 @@
 package com.checklist.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 /**
@@ -46,7 +48,7 @@ public class AttributeValue {
     public Attribute getAttribute() {
         return attribute;
     }
-
+    @JsonIgnore
     public void setAttribute(Attribute attribute) {
         this.attribute = attribute;
     }

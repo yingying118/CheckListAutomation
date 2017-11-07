@@ -17,6 +17,7 @@ public class Attribute {
     private String name;
     private String type;
     private String description;
+
     @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinTable(name = "template_attribute", joinColumns = @JoinColumn(name = "attribute_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "template_id", referencedColumnName = "id"))
@@ -41,7 +42,6 @@ public class Attribute {
     public Set<AttributeValue> getAttributeValues() {
         return attributeValues;
     }
-    @JsonIgnore
     public void setAttributeValues(Set<AttributeValue> attributeValues) {
         this.attributeValues = attributeValues;
     }
@@ -95,6 +95,8 @@ public class Attribute {
     public Attribute(String name) {
         this.name = name;
     }
+
+
 
     public Attribute(String name, String type, String description) {
         this.name = name;

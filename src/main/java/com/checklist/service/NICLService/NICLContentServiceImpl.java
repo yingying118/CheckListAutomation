@@ -29,9 +29,9 @@ public class NICLContentServiceImpl implements NICLContentService{
     @Override
     public void saveNICLContent(NICLContent niclContent) {
 
-        NICLContent toSave = new NICLContent(niclContent.getValue(),niclContent.getAttributeID(),niclContent.getAttribute());
+        NICLContent toSave = new NICLContent(niclContent.getValue(),niclContent.getAttribute());
         niclContentRepository.save(toSave);
-        NICLHead head = niclHeadService.findNICLHeadByName(niclContent.getNiclHead().getName());
+        NICLHead head = niclContent.getNiclHead();
         toSave.setNiclHead(head);
 
     }
@@ -52,7 +52,6 @@ public class NICLContentServiceImpl implements NICLContentService{
             toSave = new NICLContent();
             toSave.setNiclHead(head);
             toSave.setAttribute(attri);
-            toSave.setAttributeID(attri.getId());
             result.add(toSave);
         }
         return result;
