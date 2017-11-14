@@ -29,6 +29,9 @@
             changeView:changeView,
             getNICLHeadByGroupID:getNICLHeadByGroupID,
             getNICLContentByHeadID:getNICLContentByHeadID,
+            getNICLContentWithoutValueByHeadID:getNICLContentWithoutValueByHeadID,
+            deleteNICLHeadByID:deleteNICLHeadByID,
+
         };
 
         return services;
@@ -112,15 +115,34 @@
             return $http.get(url);
 
         }
-        function getNICLHeadByGroupID(hid){
+        function getNICLContentByHeadID(hid){
             console.log('get NICLContent with hid: ' + hid);
             var url = urlBase + '/getniclcontentbyhid/' + hid;
+            return $http.get(url);
+        }
+
+        function deleteNICLHeadByID(hid){
+            console.log('to be deleted NICLHead id: ' + hid);
+            var url = urlBase + '/deleteniclheadbyid/' + hid;
+            var config = {
+                headers: {
+                    'Content-Type': 'application/json;'
+                }
+            };
+            return $http.delete(url,config);
+
+        }
+
+        function getNICLContentWithoutValueByHeadID(hid){
+            console.log('get NICLContent with hid: ' + hid);
+            var url = urlBase + '/getniclcontentwithoutvaluebyhid/' + hid;
             return $http.get(url);
         }
 
         function changeView(url){
             $location.url(url);
         }
+
     }
 
 

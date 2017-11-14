@@ -3,13 +3,19 @@ package com.checklist.service.AttributeValueService;
 import com.checklist.model.AttributeValue;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by azhang on 30/10/2017.
  */
 public interface AttributeValueService {
     void saveAttributeValue(AttributeValue attributeValue);
-    List<AttributeValue> findListByAttributeId(Long aid);
-    List<AttributeValue> findListByAttributeName(String name);
+
+    Set<AttributeValue> findAttributeValueSetByAID(Long aid);
+
     boolean hasAttributeValue(Long aid);
+
+    Set<AttributeValue> findAttributeValueSetByHeadID(Long hid);
+
+    void saveAttributeValueSet(Set<AttributeValue> attributeValuesSet);
 }

@@ -1,5 +1,7 @@
 package com.checklist.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.naming.directory.AttributeInUseException;
 import javax.persistence.*;
 
@@ -14,28 +16,21 @@ public class NICLContent {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String value;
-
-    public Long getAttributeID() {
-        return attributeID;
-    }
-
-    public void setAttributeID(Long attributeID) {
-        this.attributeID = attributeID;
-    }
-
-
+    @ManyToOne
+    @JoinColumn(name = "aid")
     private Attribute attribute;
-    private Long attributeID;
+
 
     /**===================constructors ==================================**/
-    public NICLContent(String value, Long attributeID) {
+    public NICLContent(String value) {
         this.value = value;
-        this.attributeID = attributeID;
     }
-    public NICLContent(String value, Attribute attribute){
-        this.value=value;
-        this.attribute=attribute;
+
+    public NICLContent(String value, Attribute attribute) {
+        this.value = value;
+        this.attribute = attribute;
     }
+
     public NICLContent(){
         super();
     }
@@ -46,7 +41,6 @@ public class NICLContent {
     private NICLHead niclHead;
 
     /**===================getter and setter ==================================**/
-
     public Long getId() {
         return id;
     }
@@ -63,6 +57,15 @@ public class NICLContent {
         this.value = value;
     }
 
+
+    public NICLHead getNiclHead() {
+        return niclHead;
+    }
+
+    public void setNiclHead(NICLHead niclHead) {
+        this.niclHead = niclHead;
+    }
+
     public Attribute getAttribute() {
         return attribute;
     }
@@ -70,13 +73,4 @@ public class NICLContent {
     public void setAttribute(Attribute attribute) {
         this.attribute = attribute;
     }
-
-    public NICLHead getNiclHead() {
-        return niclHead;
-    }
-    public void setNiclHead(NICLHead niclHead) {
-        this.niclHead = niclHead;
-    }
-
-
 }

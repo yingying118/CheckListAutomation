@@ -5957,9 +5957,11 @@ dd {
 .resultform th{
   text-align: center;
 }
+.resultform td{
+  width: 25%;
+}
 .resultform .title th{
   background-color: black;
   color:white;
   font-weight:bold;
-
 }

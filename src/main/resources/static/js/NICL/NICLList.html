@@ -11,7 +11,7 @@
                 <form role="form">
                     <div class="row">
 
-                        <div class="col-sm-2">
+                        <div class="col-sm-3">
                             <div class="form-group">
                                 <label>Please Select your group</label>
                                 <select class="form-control" ng-model="NICLListCtrl.selectedGroupID"
@@ -71,16 +71,38 @@
 
     </div>
 
-    <div class="panel panel-default" ng-if="NICLListCtrl.seletedNICLContent.length > 0">
+    <div class="panel panel-default" ng-if="NICLListCtrl.seletedNICLContentList.length > 0">
         <div class="panel-heading">
-            <h3 class="panel-title">Selected Form</h3>
+            <h3 class="panel-title">Selected Form Detail</h3>
         </div>
         <div class="panel-body">
-            <fieldset>
-                <legend>Form Detail </legend>
 
 
-            </fieldset>
+                <div class="panel-body">
+                    <table class="table resultform" style="margin-top: 15px;">
+                        <thead>
+                        <tr class="title">
+                            <th colspan="4"><h1 class="panel-title">New Investment Checklist: {{NICLListCtrl.selectedNICLHead.name}}</h1></th>
+                        </tr>
+                        <tr >
+                            <th colspan="4" >OVERVIEW</th>
+                        </tr>
+                        </thead>
+                        <tbody ng-repeat="content in  NICLListCtrl.seletedNICLContentList | orderBy:'id'" >
+
+                        <tr ng-if="$even">
+                            <td style="background-color: darkgrey; font-weight:bold;">{{NICLListCtrl.seletedNICLContentList[$index].attribute.name}}</td>
+                            <td>{{NICLListCtrl.seletedNICLContentList[$index].value}}</td>
+                            <td style="background-color: darkgrey;font-weight:bold;">{{NICLListCtrl.seletedNICLContentList[$index+1].attribute.name}} </td>
+                            <td>{{NICLListCtrl.seletedNICLContentList[$index+1].value}}</td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+
+                </div>
+
+
 
 
         </div>

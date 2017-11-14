@@ -11,6 +11,8 @@ import java.util.Set;
  */
 public interface NICLContentService {
     void saveNICLContent(NICLContent niclContent);
-    List<NICLContent> findAllNICLContentByHeadID(Long niclHeadID);
+    Set<NICLContent> findAllNICLContentByHeadID(Long niclHeadID);
+    Set<NICLContent> findAllNICLContentWithoutValueByHeadID(Long niclHeadID);
+
     void saveNICLContentList(Set<NICLContent> niclContentSet);
 }

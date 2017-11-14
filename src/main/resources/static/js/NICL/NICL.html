@@ -4,15 +4,17 @@
             <h3 class="panel-title">Mockup Page For NICL</h3>
         </div>
 
+        <!--for testing-->
+
         <!--this is generate form head page-->
         <div class="panel-body" ng-if="!NICLCtrl.showFormFlag && !NICLCtrl.showResultFlag">
 
             <fieldset>
                 <legend>Form Basic Info</legend>
-                <form role="form">
+                <form role="form" name="niclform">
                     <div class="row" ng-model="NICLCtrl.newNICLHead">
 
-                        <div class="col-sm-2">
+                        <div class="col-sm-3">
                             <div class="form-group">
                                 <label>Please Select your group</label>
                                 <select class="form-control" ng-model="NICLCtrl.selectedGroupID"
@@ -27,15 +29,20 @@
                         <div class="col-sm-3">
                             <div class="form-group">
                                 <label>User Name</label>
-                                <input ng-model="NICLCtrl.newNICLHead.owner" class="form-control" type="text"
-                                       placeholder="Please Enter Your Name">
+                                <input name="username" ng-model="NICLCtrl.newNICLHead.owner" class="form-control" type="text"
+                                       placeholder="Please Enter Your Name" required/>
+                                <span ng-show="niclform.username.$touched && niclform.username.$invalid">The user name is required.</span>
+
+
                             </div>
                         </div>
                         <div class="col-sm-3">
                             <div class="form-group">
                                 <label>Form Name</label>
-                                <input ng-model="NICLCtrl.newNICLHead.name" class="form-control" type="text"
-                                       placeholder="Please Enter Form Name">
+                                <input name="formname" ng-model="NICLCtrl.newNICLHead.name" class="form-control" type="text"
+                                       placeholder="Please Enter Form Name" required/>
+                                <span ng-show="niclform.formname.$touched && niclform.formname.$invalid">The form name is required.</span>
+
                             </div>
                         </div>
 
@@ -75,73 +82,126 @@
 
 
                     </div>
-
+                    <button ng-disabled="niclform.$invalid" type="submit" class="btn btn-primary" data-toggle="modal" data-target="#confirmModal">Confirm
+                    </button>
+                    <button type="reset" class="btn btn-default" value="Reset" ng-click="NICLCtrl.clearAll()">Reset</button>
                 </form>
             </fieldset>
-            <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#confirmModal">Confirm
-            </button>
-            <button type="reset" class="btn btn-default" value="Reset" ng-click="NICLCtrl.goBack()">Reset</button>
+
 
 
         </div>
         <!--this is for the action of filling form-->
         <div class="panel-body" ng-if="NICLCtrl.showFormFlag">
 
-
-                    <table class="table resultform" style="margin-top: 15px;">
-                        <thead>
-                        <tr class="title">
-                            <th colspan="4"><h1 class="panel-title">New Investment Checklist: {{NICLCtrl.newNICLHead.name}}</h1></th>
-                        </tr>
-                        <tr >
-                            <th colspan="4" >Please Fill The Form Below</th>
-                        </tr>
-                        </thead>
-                        <tbody ng-repeat="attribute in  NICLCtrl.selectedTemplate.attributes |orderBy:'id'" >
-
-                        <tr ng-if="$even">
-                            <td style="background-color: darkgrey; font-weight:bold;">{{NICLCtrl.selectedTemplate.attributes[$index].name}} </td>
-                            <td> <input ng-model="NICLCtrl.newAttributeList[NICLCtrl.selectedTemplate.attributes[$index].id]" class="form-control" type="text"
-                                        placeholder="Please Enter {{NICLCtrl.selectedTemplate.attributes[$index].name}} value">
-                                </td>
-                            <td style="background-color: darkgrey;font-weight:bold;">{{NICLCtrl.selectedTemplate.attributes[$index+1].name}} </td>
-                            <td> <input ng-model="NICLCtrl.newAttributeList[NICLCtrl.selectedTemplate.attributes[$index+1].id]" class="form-control" type="text"
-                                        placeholder="Please Enter {{NICLCtrl.selectedTemplate.attributes[$index+1].name}} value"></td>
-                        </tr>
-
-                        </tbody>
-                    </table>
-                    <button type="submit" class="btn btn-primary" ng-click="NICLCtrl.printList()">Confirm</button>
-                    <button type="reset" value="Reset" ng-click="NICLCtrl.reset()" class="btn btn-default">Reset</button>
-                    <button type="reset" class="btn btn-default" value="Reset" ng-click="NICLCtrl.goBack()">Go Back</button>
-
-
-        </div>
-        <!--this is for the overview of filling form-->
-        <div class="panel-body" ng-if="NICLCtrl.showResultFlag">
             <table class="table resultform" style="margin-top: 15px;">
                 <thead>
                 <tr class="title">
-                    <th colspan="4"><h1 class="panel-title">New Investment Checklist: {{NICLCtrl.newNICLHead.name}}</h1></th>
+                    <th colspan="4"><h1 class="panel-title">New Investment Checklist: {{NICLCtrl.newNICLHead.name}}</h1>
+                    </th>
                 </tr>
-                <tr >
-                    <th colspan="4" >OVERVIEW</th>
+                <tr>
+                    <th colspan="4">Please Fill The Form Below</th>
                 </tr>
                 </thead>
-                <tbody ng-repeat="attribute in  NICLCtrl.selectedTemplate.attributes |orderBy:'id'" >
+                <tbody ng-repeat="content in  NICLCtrl.NICLContentList">
 
                 <tr ng-if="$even">
-                    <td style="background-color: darkgrey; font-weight:bold;">{{NICLCtrl.selectedTemplate.attributes[$index].name}} </td>
-                    <td>{{NICLCtrl.newAttributeList[NICLCtrl.selectedTemplate.attributes[$index].id]}}</td>
-                    <td style="background-color: darkgrey;font-weight:bold;">{{NICLCtrl.selectedTemplate.attributes[$index+1].name}} </td>
-                    <td>{{NICLCtrl.newAttributeList[NICLCtrl.selectedTemplate.attributes[$index+1].id]}}</td>
+                    <td style="background-color: darkgrey;font-weight:bold;">
+                        {{NICLCtrl.NICLContentList[$index].attribute.name}}
+                        <a ng-if="NICLCtrl.NICLContentList[$index].attribute.description" href="#"  data-toggle="tooltip"  title="{{NICLCtrl.NICLContentList[$index].attribute.description}}">
+                            <span class="glyphicon glyphicon-info-sign"></span>
+                        </a>
+                    </td>
+
+                    <td ng-if="NICLCtrl.NICLContentList[$index].attribute.type=='text'">
+                        <input class="form-control" type="text" required
+                               id="{{NICLCtrl.NICLContentList[$index].name}}"
+                               data-ng-model="NICLCtrl.NICLContentList[$index].value"
+                               ng-init="NICLCtrl.NICLContentList[$index].value=NICLCtrl.NICLContentList[$index].attribute.attributeValues[0].value"
+                               placeholder="Please Enter {{NICLCtrl.NICLContentList[$index].attribute.name}} value"/>
+                    </td>
+
+                    <td ng-if="NICLCtrl.NICLContentList[$index].attribute.type=='dropdown'">
+                        <select class="form-control"
+                                data-ng-model="NICLCtrl.NICLContentList[$index].value" required>
+                            <option ng-repeat="option in NICLCtrl.NICLContentList[$index].attribute.attributeValues"
+                                    value="{{option.value}}">{{option.value}}
+                            </option>
+                        </select>
+
+
+                    </td>
+
+
+                    <td ng-if="NICLCtrl.NICLContentList[$index+1]" style="background-color: darkgrey;font-weight:bold;">
+                       {{NICLCtrl.NICLContentList[$index+1].attribute.name}}
+                        <a ng-if="NICLCtrl.NICLContentList[$index+1].attribute.description" href="#"  data-toggle="tooltip"  title="{{NICLCtrl.NICLContentList[$index+1].attribute.description}}">
+                            <span class="glyphicon glyphicon-info-sign"></span>
+                        </a>
+                    </td>
+                    <td  ng-if="NICLCtrl.NICLContentList[$index+1].attribute.type=='text'">
+                        <input class="form-control" type="text" required
+                               id="{{NICLCtrl.NICLContentList[$index+1].name}}"
+                               data-ng-model="NICLCtrl.NICLContentList[$index+1].value"
+                               ng-init="NICLCtrl.NICLContentList[$index+1].value=NICLCtrl.NICLContentList[$index+1].attribute.attributeValues[0].value"
+                               placeholder="Please Enter {{NICLCtrl.NICLContentList[$index+1].attribute.name}} value"/>
+                    </td>
+                    <td ng-if="NICLCtrl.NICLContentList[$index+1].attribute.type=='dropdown'">
+                        <select class="form-control"
+                                data-ng-model="NICLCtrl.NICLContentList[$index+1].value" required>
+                            <option ng-repeat="option in NICLCtrl.NICLContentList[$index+1].attribute.attributeValues"
+                                    value="{{option.value}}">{{option.value}}
+                            </option>
+                        </select>
+
+                    </td>
+
                 </tr>
 
                 </tbody>
             </table>
+            <button type="submit" class="btn btn-primary" ng-click="NICLCtrl.showReviewForm()">Confirm</button>
+            <button type="reset" value="Reset" ng-click="NICLCtrl.resetForm()" class="btn btn-default">Reset</button>
+            <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#goBackModal">Go Back</button>
+
+        </div>
+
+
+        <!--this is for the overview of filling form-->
+        <div class="panel-body" ng-if="!NICLCtrl.showFormFlag && NICLCtrl.showResultFlag">
+            <table class="table resultform" style="margin-top: 15px;">
+                <thead>
+                <tr class="title">
+                    <th colspan="4"><h1 class="panel-title">New Investment Checklist: {{NICLCtrl.newNICLHead.name}}</h1>
+                    </th>
+                </tr>
+                <tr>
+                    <th colspan="4">OVERVIEW</th>
+                </tr>
+                </thead>
+                <tbody ng-repeat="content in  NICLCtrl.NICLContentList">
+
+                <tr ng-if="$even">
+                    <td style="background-color: darkgrey; font-weight:bold;">
+
+                        {{NICLCtrl.NICLContentList[$index].attribute.name}}
+                    </td>
+                    <td>{{NICLCtrl.NICLContentList[$index].value}}</td>
+                    <td ng-if="NICLCtrl.NICLContentList[$index+1]" style="background-color: darkgrey;font-weight:bold;">
+
+                        {{NICLCtrl.NICLContentList[$index+1].attribute.name}}
+                    </td>
+                    <td>{{NICLCtrl.NICLContentList[$index+1].value}}</td>
+                </tr>
+
+                </tbody>
+            </table>
+
             <button type="submit" class="btn btn-primary" ng-click="NICLCtrl.submitContent()">Confirm</button>
             <button type="button" ng-click="NICLCtrl.backToForm()" class="btn btn-default">Go Back</button>
         </div>
+
     </div>
 </div>
 
@@ -185,4 +245,27 @@
 </div>
 
 
+<div class="modal fade" id="goBackModal" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Warning</h4>
+            </div>
+            <div class="modal-body">
+                <Strong>Do you want to give up the form: {{NICLCtrl.newNICLHead.name}}</Strong>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                <button type="submit" ng-click="NICLCtrl.clearAll()" class="btn btn-primary" data-dismiss="modal">
+                    Yes
+                </button>
+
+            </div>
+        </div>
+
+    </div>
+</div>
 

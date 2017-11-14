@@ -1,44 +1,72 @@
 <div class="container">
-
-    <br>
-    <h2>Attribute Management</h2>
-    <table class="table table-striped" ng-model="attrCtrl.attributes">
-        <thead>
-        <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Type</th>
-            <th>Description</th>
-        </tr>
-        <tbody>
-        <tr ng-repeat="attr in attrCtrl.attributes">
-            <td>{{attr.id}}</td>
-            <td>{{attr.name}}</td>
-            <td>{{attr.type}}</td>
-            <td>{{attr.description}}</td>
-        </tr>
-        </tbody>
-        </thead>
-    </table>
-
-
-    <form ng-model="attrCtrl.newAttribute">
-
-        <div class="form-group">
-            <label for="attributeName">Attribute Name: </label>
-            <input type="text" class="form-control" ng-model="attrCtrl.newAttribute.name" id="attributeName"
-                   placeholder="Enter Attribute Name" name="attributeName"/>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">Attribute Management</h3>
         </div>
+        <div class="panel-body">
+            <fieldset>
+                <legend>
+                    Attribute Generator
+                </legend>
+                <form role="form" ng-model="attrCtrl.newAttribute">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label for="attributeName">Attribute Name</label>
+                                <input type="text" class="form-control" ng-model="attrCtrl.newAttribute.name" id="attributeName"
+                                       placeholder="Enter Attribute Name" name="attributeName"/>
+                            </div>
 
-        <div class="form-group">
+                        </div>
 
+                    </div>
 
-            <button class="btn btn-primary" type="button" ng-click="attrCtrl.saveNewAttribute()">
-                Create <span class="glyphicon glyphicon-chevron-right"></span>
-            </button>
-            <button type="reset" value="Reset" class="btn btn-link"
-                    ng-click="attrCtrl.resetNewAttribute()">Clear</button>
+                    <button class="btn btn-primary" type="button" ng-click="attrCtrl.saveNewAttribute()">
+                        Create <span class="glyphicon glyphicon-chevron-right"></span>
+                    </button>
+                    <button type="reset" value="Reset" class="btn btn-link"
+                            ng-click="attrCtrl.resetNewAttribute()">Clear</button>
+                </form>
+            </fieldset>
+
+            <fieldset>
+                <legend>
+                    Attribute Pool
+                </legend>
+                <table class="table table-striped" ng-model="attrCtrl.attributes">
+                    <thead>
+                    <tr>
+                        <th style="width:5%">ID</th>
+                        <th style="width:15%">Name</th>
+                        <th style="width:10%">Type</th>
+                        <th style="width:40%">Description</th>
+                        <th>Value</th>
+                    </tr>
+                    <tbody>
+                    <tr ng-repeat="attr in attrCtrl.attributes">
+                        <td>{{attr.id}}</td>
+                        <td>{{attr.name}}</td>
+                        <td>{{attr.type}}</td>
+                        <td >{{attr.description}}</td>
+                        <td ng-if="attr.type!=='dropdown'">
+                        </td>
+                        <td ng-if="attr.type=='dropdown'">
+                            <div class="form-group">
+                                <select class="form-control">
+                                    <option ng-repeat="value in attr.attributeValues">{{value.value}} </option>
+                                </select>
+                            </div>
+
+                        </td>
+                    </tr>
+                    </tbody>
+                    </thead>
+                </table>
+            </fieldset>
 
         </div>
-    </form>
+    </div>
 </div>
+
+
+

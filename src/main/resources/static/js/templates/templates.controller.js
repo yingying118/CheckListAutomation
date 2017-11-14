@@ -15,6 +15,7 @@
         self.selectedGroup=null;
         self.newTemplate = {};
         self.newAttributeSelection = null;
+
         self.attributeSelectionTemplate = {
             searchPlaceHolder: 'Typing Attribute Name to filter.',
             labelAll: 'All Attributes',

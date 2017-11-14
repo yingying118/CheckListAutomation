@@ -1,9 +1,12 @@
 package com.checklist.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 /**
  * Created by azhang on 30/10/2017.
+ * this is for predefined attribute value pool
  */
 @Entity
 @Table(name = "AttributeValuePool")
@@ -45,7 +48,7 @@ public class AttributeValue {
     public Attribute getAttribute() {
         return attribute;
     }
-
+    @JsonIgnore
     public void setAttribute(Attribute attribute) {
         this.attribute = attribute;
     }

@@ -13,7 +13,7 @@ public interface NICLHeadService {
     NICLHead saveNICLHead(NICLHead niclHead);
     List<NICLHead> findAllNICLHeads();
     NICLHead findNICLHeadByName(String name);
-
+    void deleteNICLHeadByID(Long id);
     Set<NICLHead> findAllNICLHeadsByGroupID(long gid);
 
 

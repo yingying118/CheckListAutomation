@@ -19,8 +19,9 @@
             self.groups=[];
             self.NICLHeadList=[];
             self.selectedGroupID;
-            self.seletedNICLContent=[];
+            self.seletedNICLContentList=[];
             self.selectedNICLHead={};
+            self.showForDetail=false;
             getAllGroups();
         /**
          * Public functions
@@ -35,7 +36,7 @@
             NICLService.getNICLHeadByGroupID(self.selectedGroupID).then(function (response) {
                     self.NICLHeadList = response.data;
                     console.log('fetching NICLHeadList with gid:['+ self.selectedGroupID+ '] successfully!');
-
+                    clearForm();
                 }, function (errResponse) {
                     console.error('Error while get all groups : ' + errResponse.toString());
                 }
@@ -45,9 +46,9 @@
             console.log('fetching NICL Content with hid:['+ headItem.id + ']');
             self.selectedNICLHead=headItem;
             NICLService.getNICLContentByHeadID(self.selectedNICLHead.id).then(function (response) {
-                    self.seletedNICLContent = response.data;
+                    self.seletedNICLContentList = response.data;
                     console.log('fetching NICL Content with hid:['+ self.selectedNICLHead.id + '] successfully!');
-
+                    self.showForDetail=true;
                 }, function (errResponse) {
                     console.error('Error while get all groups : ' + errResponse.toString());
                 }
@@ -67,6 +68,11 @@
                 }
             )
         }
+        function clearForm(){
+            self.seletedNICLContentList=[];
+            self.selectedNICLHead={};
+        }
+
 
     }
 })();

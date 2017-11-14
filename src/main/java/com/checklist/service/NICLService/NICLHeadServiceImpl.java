@@ -4,6 +4,7 @@ import com.checklist.model.NICLHead;
 import com.checklist.model.Template;
 import com.checklist.repository.GroupRepository;
 import com.checklist.repository.NICLHeadRepository;
+import com.checklist.service.AttributeValueService.AttributeValueService;
 import com.checklist.service.NICLService.NICLHeadService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,6 +26,7 @@ public class NICLHeadServiceImpl implements NICLHeadService {
     private NICLHeadRepository headRepository;
     @Autowired
     private GroupRepository groupRepository;
+
     @Override
     public NICLHead findNICLHeadByID(Long id) {
 
@@ -52,6 +54,11 @@ public class NICLHeadServiceImpl implements NICLHeadService {
             }
         }
         return null;
+    }
+
+    @Override
+    public void deleteNICLHeadByID(Long id) {
+         headRepository.delete(id);
     }
 
     @Override

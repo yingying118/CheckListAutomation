@@ -1,42 +1,51 @@
 <div class="container">
-    <br>
-    <h2>Group Management</h2>
-    <div>
-    <table class="table table-striped" ng-model="groupsCtrl.groups">
-        <thead>
-        <tr>
-            <th>ID</th>
-            <th>Name</th>
-        </tr>
-
-        <tbody>
-        <tr ng-repeat="group in groupsCtrl.groups">
-            <td>{{group.id}}</td>
-            <td>{{group.name}}</td>
-
-        </tr>
-        </tbody>
-        </thead>
-    </table>
-    </div>
-    <div>
-
-    <form ng-model="groupsCtrl.newGroup">
-
-        <div class="form-group">
-            <label for="groupName">Group Name: </label>
-            <input type="text" class="form-control" ng-model="groupsCtrl.newGroup.name" id="groupName"
-                   placeholder="Enter Group Name" name="groupName"/>
-
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">Template List</h3>
         </div>
+        <div class="panel-body">
+            <fieldset>
+                <legend>
+                    Group Generator
+                </legend>
+                <form ng-model="groupsCtrl.newGroup">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label for="groupName">Group Name: </label>
+                                <input type="text" class="form-control" ng-model="groupsCtrl.newGroup.name" id="groupName"
+                                       placeholder="Enter Group Name" name="groupName"/>
+                            </div>
+                        </div>
+                    </div>
+                        <button type="submit" class="btn btn-primary"
+                                ng-click="groupsCtrl.saveNewGroup()">Submit
+                        </button>
+                        <button type="reset" value="Reset" class="btn btn-default"
+                                ng-click="groupsCtrl.resetNewGroup()">Clear</button>
 
-        <div class="form-group">
-            <button type="submit" class="btn btn-primary"
-                    ng-click="groupsCtrl.saveNewGroup()">Submit
-            </button>
-            <button type="reset" value="Reset" class="btn btn-default"
-                    ng-click="groupsCtrl.resetNewGroup()">Clear</button>
+                </form>
+            </fieldset>
+            <fieldset>
+                <legend>Group Info</legend>
+                <table class="table table-striped" ng-model="groupsCtrl.groups">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                    </tr>
+
+                    <tbody>
+                    <tr ng-repeat="group in groupsCtrl.groups">
+                        <td>{{group.id}}</td>
+                        <td>{{group.name}}</td>
+
+                    </tr>
+                    </tbody>
+                    </thead>
+                </table>
+            </fieldset>
         </div>
-    </form>
     </div>
 </div>
+
