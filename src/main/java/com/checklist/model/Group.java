@@ -28,31 +28,24 @@ public class Group {
     public void setTemplates(Set<Template> templates) {
         this.templates = templates;
     }
-
-
     public Long getId() {
         return id;
     }
-
     public void setId(long id) {
         this.id = id;
     }
-
     public String getName() {
         return name;
     }
-
     public void setName(String name) {
         this.name = name;
     }
-
     public Group(){
         super();
     }
     public Group(String name) {
         this.name = name;
     }
-
     public Group(Long id, String name) {
         this.id = id;
         this.name = name;

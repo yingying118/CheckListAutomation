@@ -1,14 +1,10 @@
 package com.checklist;
 
-import com.checklist.model.Attribute;
-import com.checklist.model.AttributeValue;
-import com.checklist.model.Group;
-import com.checklist.model.Template;
-import com.checklist.repository.AttributeRepository;
-import com.checklist.repository.AttributeValueRepository;
-import com.checklist.repository.GroupRepository;
-import com.checklist.repository.TemplateRepository;
+import com.checklist.model.*;
+import com.checklist.repository.*;
 import com.checklist.service.AttributeValueService.AttributeValueService;
+import com.checklist.service.SectionService.SectionService;
+import com.checklist.service.TemplateService.TemplateService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,13 +36,21 @@ public class DemoApplication implements CommandLineRunner{
     AttributeValueRepository attributeValueRepository;
     @Autowired
     private AttributeValueService attributeValueService;
+    @Autowired
+    private SectionRepository sectionRepository;
+    @Autowired
+    private SectionService sectionService;
+    @Autowired
+    private TemplateService templateService;
+
     @Transactional
     @Override
     public void run(String... strings) throws Exception {
 
         Group g1 = new Group("PCI");
         Group g2 = new Group("GroupA");
-
+        groupRepository.save(g1);
+        groupRepository.save(g2);
 
         Attribute a1 = new Attribute("Reporting Name","text");
         Attribute a2 = new Attribute("Issuer Name","text");
@@ -118,8 +122,7 @@ public class DemoApplication implements CommandLineRunner{
         }};
         attributeValueService.saveAttributeValueSet(a10options);
 
-        groupRepository.save(g1);
-        groupRepository.save(g2);
+
         attributeRepository.save(a1);
         attributeRepository.save(a2);
         attributeRepository.save(a3);
@@ -134,14 +137,58 @@ public class DemoApplication implements CommandLineRunner{
         Template t1 = new Template("Template T1", g1);
         Template t2 = new Template("Template T2", g2);
 
-        Set templateAs = new HashSet<Template>() {{
-            add(t1);
+        Section s1= new Section("Overview", 1 ,t1);
+        Section s2= new Section("Security Details", 2,t1);
 
+        //templateRepository.save(t2);
+        sectionRepository.save(s1);
+        sectionRepository.save(s2);
+
+        Set<Section> sectionSet=new HashSet<Section>(){{
+            add(s1);
+            add(s2);
+        }};
+        templateRepository.save(t1);
+        t1.setSections(sectionSet);
+
+        SectionAttribute sectionAttribute = new SectionAttribute();
+        sectionAttribute.setAttribute(a1);
+        sectionAttribute.setTemplate(t1);
+        sectionAttribute.setSection(s2);
+        s2.getSectionAttributes().add(sectionAttribute);
+
+
+
+/*
+        Template t3 = new Template("Template T3", g1);
+        Section s3=new Section("OverviewT3", 1,t3 );
+        Section s4=new Section("OverviewT4", 2,t3);
+
+        Set<Section> sectionSet=new HashSet<Section>(){{
+            add(s3);
+            add(s4);
+        }};
+
+        t3.setSections(sectionSet);
+        templateService.saveTemplate(t3);
+
+        SectionAttribute sectionAttribute = new SectionAttribute();
+        sectionAttribute.setAttribute(a1);
+        sectionAttribute.setSection(s2);
+        sectionAttribute.setTemplate(t1);
+        sectionAttribute.setOrder(1);
+
+        a1.getSectionAttributes().add(sectionAttribute);
+*/
+
+
+/*
+       Set templateAs = new HashSet<Template>() {{
+            add(t1);
         }};
         Set templatePIC = new HashSet<Template>() {{
             add(t2);
         }};
-
         a1.setTemplates(templatePIC);
         a2.setTemplates(templatePIC);
         a3.setTemplates(templateAs);
@@ -151,7 +198,7 @@ public class DemoApplication implements CommandLineRunner{
         a7.setTemplates(templateAs);
         a8.setTemplates(templateAs);
         a9.setTemplates(templateAs);
-        a10.setTemplates(templateAs);
+        a10.setTemplates(templateAs);*/
 
 
 

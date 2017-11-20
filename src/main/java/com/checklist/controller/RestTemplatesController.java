@@ -8,6 +8,7 @@ import com.checklist.model.Attribute;
 import com.checklist.model.Group;
 import com.checklist.model.Template;
 import com.checklist.service.TemplateService.TemplateService;
+import jdk.nashorn.internal.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
@@ -19,7 +20,6 @@ import java.util.Set;
 @RequestMapping("/templates")
 public class RestTemplatesController {
 String base = "http://localhost:8080";
-
 
     @Autowired
     TemplateService templateService;
@@ -40,7 +40,8 @@ String base = "http://localhost:8080";
         return restTemplate.getForObject(base+"/groups/getgroupbyid/" + id, Group.class);
     }
     @RequestMapping(value="/createtemplate", method = RequestMethod.POST)
-    public void createTemplate(@RequestBody Template template)  {
+    public void createTemplate(@RequestBody Template template) throws Exception {
+        System.out.println(template);
         templateService.saveTemplate(template);
     }
 
@@ -50,10 +51,6 @@ String base = "http://localhost:8080";
         return restTemplate.getForObject(base+"/groups/getgrouptemplates/" + id, Set.class);
     }
 
-    @RequestMapping(value="/gettemplateattributes/{tid}", method=RequestMethod.GET)
-    public Set<Attribute> getTemplateAttributes(@PathVariable("tid") Long id){
-       return templateService.findTemplateByID(id).getAttributes();
-    }
 
 
 

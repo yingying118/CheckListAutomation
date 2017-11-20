@@ -14,7 +14,9 @@
         self.group={};
         self.selectedGroup=null;
         self.newTemplate = {};
-        self.newAttributeSelection = null;
+        //self.newAttributeSelection = null;
+        self.newSections=[];
+
 
         self.attributeSelectionTemplate = {
             searchPlaceHolder: 'Typing Attribute Name to filter.',
@@ -30,27 +32,64 @@
 
         getAllGroups();
         getAllAttributes();
+        initPage();
 
         this.getAllAttributes = getAllAttributes;
         this.createNewTemplate = createNewTemplate;
         this.resetNewTemplate = resetNewTemplate;
         this.getGroupById = getGroupById;
         this.getNewTemplateInfo = getNewTemplateInfo;
-
+        this.addNewSection=addNewSection;
+        this.removeSection = removeSection;
         /**
          * Public functions
          */
+        function addNewSection(){
+            var newSectionNo = self.newSections.length + 1;
+            var temp = {};
+            temp.order= newSectionNo;
+            self.newSections.push(temp);
+
+            temp.selectAttribute = angular.copy(self.attributeSelectionTemplate);
+            temp.selectAttribute.items =  self.newSections[0].selectAttribute.items;
+            temp.selectAttribute.selectedItems=[];
+
+
+        };
+
+        function removeSection(){
+            var lastItem = self.newSections.length-1;
+            self.newSections.splice(lastItem);
+        }
+
         function resetNewTemplate() {
             self.newTemplate = {};
+            /**
             self.newAttributeSelection = angular.copy(self.attributeSelectionTemplate);
             self.newAttributeSelection.items = angular.copy(self.attributes);
-            self.newAttributeSelection.selectedItems = [];
+            self.newAttributeSelection.selectedItems = [];**/
+            initPage();
+            self.newSections[0].selectAttribute = angular.copy(self.attributeSelectionTemplate);
+            self.newSections[0].selectAttribute.items = angular.copy(self.attributes);
+            self.newSections[0].selectAttribute.selectedItems=[];
+
         }
 
         function getNewTemplateInfo(){
-            self.newTemplate.attributes = self.newAttributeSelection.selectedItems;
-            self.newTemplate.groupObject =  self.group;
-
+            self.newTemplate.groupObject = self.group;
+            self.newTemplate.sections=[];
+            self.newSections.forEach(function(obj){
+                var toSave={};
+                toSave.section_order=obj.order;
+                toSave.name= obj.name;
+                toSave.sectionAttributes=[];
+                obj.selectAttribute.selectedItems.forEach(function(attrObj){
+                    var temp_sectionAttribute={};
+                    temp_sectionAttribute.attribute=attrObj;
+                    toSave.sectionAttributes.push(temp_sectionAttribute)
+                });
+                self.newTemplate.sections.push(toSave);
+            });
         }
 
         function createNewTemplate() {
@@ -100,6 +139,14 @@
             )
         }
 
+        function initPage(){
+            self.newSections=[
+                {order: '1', name: 'Overview', selectAttribute:[]}
+            ];
+            self.group={};
+            self.selectedGroup=null;
+
+        }
         function getAllAttributes() {
             templatesService.getAllAttributes().then(function (response) {
                     self.attributes = response.data;

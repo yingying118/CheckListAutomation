@@ -68,10 +68,7 @@ public class RestNICLController {
            Set<NICLHead> niclHead = niclHeadService.findAllNICLHeadsByGroupID(id);
            return niclHead;
     }
-    @RequestMapping(value="/gettemplateattributes/{tid}", method=RequestMethod.GET)
-    public Set<Attribute> getTemplateAttributes(@PathVariable("tid") Long id){
-        return templateService.findTemplateByID(id).getAttributes();
-    }
+
     @RequestMapping(value="/gettemplatebyid/{tid}", method=RequestMethod.GET)
     public Template getTemplateByID(@PathVariable("tid") Long id){
         return templateService.findTemplateByID(id);

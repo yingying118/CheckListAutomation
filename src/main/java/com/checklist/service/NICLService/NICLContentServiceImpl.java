@@ -41,6 +41,12 @@ public class NICLContentServiceImpl implements NICLContentService{
         return niclHeadService.findNICLHeadByID(niclHeadID).getNICLContents();
 
     }
+
+    @Override
+    public Set<NICLContent> findAllNICLContentWithoutValueByHeadID(Long niclHeadID) {
+        return null;
+    }
+    /*
     @Override
     public Set<NICLContent> findAllNICLContentWithoutValueByHeadID(Long niclHeadID) {
         Set<NICLContent> result= new HashSet<NICLContent>();
@@ -56,7 +62,7 @@ public class NICLContentServiceImpl implements NICLContentService{
         }
         return result;
 
-    }
+    }*/
 
     @Override
     public void saveNICLContentList(Set<NICLContent> niclContentSet) {

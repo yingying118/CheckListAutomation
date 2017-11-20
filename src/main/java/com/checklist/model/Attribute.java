@@ -3,6 +3,8 @@ package com.checklist.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -10,7 +12,7 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "AttributePool")
-public class Attribute {
+public class Attribute{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -18,10 +20,7 @@ public class Attribute {
     private String type;
     private String description;
 
-    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-    @JoinTable(name = "template_attribute", joinColumns = @JoinColumn(name = "attribute_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "template_id", referencedColumnName = "id"))
-    private Set<Template> templates;
+
 
     @OneToMany(mappedBy = "attribute",cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     private Set<AttributeValue> attributeValues;
@@ -29,7 +28,18 @@ public class Attribute {
     @OneToMany(mappedBy = "attribute",cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     private Set<NICLContent> niclContentSet;
 
+    @OneToMany(mappedBy = "attribute",cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    public Set<SectionAttribute> sectionAttributes;
+
     /*---------------getter and setter ------------------*/
+
+    public Set<SectionAttribute> getSectionAttributes() {
+        return sectionAttributes;
+    }
+    @JsonIgnore
+    public void setSectionAttributes(Set<SectionAttribute> sectionAttributes) {
+        this.sectionAttributes = sectionAttributes;
+    }
 
     public Set<NICLContent> getNiclContentSet() {
         return niclContentSet;
@@ -46,14 +56,6 @@ public class Attribute {
         this.attributeValues = attributeValues;
     }
 
-
-    public Set<Template> getTemplates() {
-        return templates;
-    }
-    @JsonIgnore
-    public void setTemplates(Set<Template> templates) {
-        this.templates = templates;
-    }
 
 
     public String getName() {
@@ -99,6 +101,7 @@ public class Attribute {
     public Attribute(String name,String type) {
         this.name = name;
         this.type = type;
+        sectionAttributes = new HashSet<>();
     }
 
 
@@ -106,6 +109,8 @@ public class Attribute {
         this.name = name;
         this.type = type;
         this.description = description;
+        sectionAttributes = new HashSet<>();
+
     }
 
     @Override

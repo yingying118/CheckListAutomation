@@ -4,8 +4,7 @@
             <h3 class="panel-title">Template Generator</h3>
         </div>
         <div class="panel-body">
-
-            <fieldset>
+           <fieldset>
                 <legend>Template Info</legend>
                 <form role="form">
                     <div class="row">
@@ -36,19 +35,37 @@
                 </form>
             </fieldset>
 
-            <fieldset>
+            <fieldset ng-repeat="section in tempCtrl.newSections">
                 <legend>Attributes Selector</legend>
-                <form role="form" ng-model="tempCtrl.newTemplate">
+                <form role="form" >
                     <div>
-
                         <div class="form-group">
-                            <multi-select options="tempCtrl.newAttributeSelection"></multi-select>
+                            <label>Section Name</label>
+                            <input type="text" ng-model="section.name" placeholder="Enter Section Name">
                         </div>
 
                     </div>
 
+                    <div>
+                        <div class="form-group">
+                            <multi-select options="section.selectAttribute"></multi-select>
+                        </div>
+                    </div>
                 </form>
+
+                <button type="button" class="btn btn-primary" ng-click="tempCtrl.addNewSection()">Add Section</button>
+
+
             </fieldset>
+
+
+
+
+
+
+
+
+
             <div class="form-group">
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myCreateTemplate"
                         ng-click="tempCtrl.getNewTemplateInfo()">Submit
@@ -77,10 +94,7 @@
             <div class="modal-body" ng-model="tempCtrl.newTemplate">
                 Template Name: {{tempCtrl.newTemplate.name}}
                 <br>Group: {{tempCtrl.newTemplate.groupObject.name}}
-                <br>Attributes:<br>
-                <ul style="list-style-type:none" ng-repeat="a in tempCtrl.newTemplate.attributes">
-                    <li>{{a.name}}</li>
-                </ul>
+
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

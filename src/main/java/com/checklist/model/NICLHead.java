@@ -22,7 +22,7 @@ public class NICLHead {
     @ManyToOne
     @JoinColumn(name = "tid")
     private Template template;
-/*---------------------constructors -----------------------------------------------*/
+    /*---------------------constructors -----------------------------------------------*/
 
     public NICLHead(String owner) {
         this.owner = owner;
@@ -36,7 +36,6 @@ public class NICLHead {
     /*---------------------head_content relationship -----------------------------------------------*/
     @OneToMany(mappedBy="niclHead", cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     private Set<NICLContent> NICLContents;
-
     public Set<NICLContent> getNICLContents() {
         return NICLContents;
     }

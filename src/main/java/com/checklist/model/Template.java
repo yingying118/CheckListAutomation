@@ -3,6 +3,7 @@ package com.checklist.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -28,19 +29,6 @@ public class Template {
     }
 
 
-    /*-----------------------template_attribute many-many relationship -------------------------*/
-
-    @ManyToMany(mappedBy="templates", cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-     private Set<Attribute> attributes;
-
-    public Set<Attribute> getAttributes() {
-        return attributes;
-    }
-    public void setAttributes(Set<Attribute> attributes) {
-        this.attributes = attributes;
-    }
-
-
     /*-----------------------NICLHead_template one-many relationship ---------------------------*/
 
     @OneToMany(mappedBy = "template", cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
@@ -53,6 +41,31 @@ public class Template {
         this.NICLHeads = NICLHeads;
     }
 
+    /*--------------template_section one-many relationship   ------------------------------------*/
+
+    @OneToMany(mappedBy = "template", cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    private Set<Section> sections = new HashSet<Section>();
+    public Set<Section> getSections() {
+        return sections;
+    }
+
+    public void setSections(Set<Section> sections) {
+        this.sections = sections;
+    }
+
+    /*--------------template_sectionattribute one-many relationship   ------------------------------------*/
+
+    @OneToMany(mappedBy = "template", cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    private Set<SectionAttribute> sectionAttributes;
+
+    public Set<SectionAttribute> getSectionAttributes() {
+        return sectionAttributes;
+    }
+    @JsonIgnore
+    public void setSectionAttributes(Set<SectionAttribute> sectionAttributes) {
+        this.sectionAttributes = sectionAttributes;
+    }
+
     /*--------------Constructor -----------------------------------------------------------------*/
     public Template(){
         super();
@@ -60,13 +73,17 @@ public class Template {
     public Template(String name, Group group) {
         this.name = name;
         this.groupObject = group;
+        sectionAttributes=new HashSet<>();
     }
 
-    public Template(String name, Group groupObject, Set<Attribute> attributes) {
+    public Template(String name, Group groupObject, Set<Section> sections) {
         this.name = name;
         this.groupObject = groupObject;
-        this.attributes = attributes;
+        this.sections = sections;
+        sectionAttributes=new HashSet<>();
+
     }
+
 
     public Template(String name) {
         this.name = name;

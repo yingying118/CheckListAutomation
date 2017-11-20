@@ -1,6 +1,7 @@
 package com.checklist.service.TemplateService;
 
 import com.checklist.model.Attribute;
+import com.checklist.model.Section;
 import com.checklist.model.Template;
 
 import java.util.List;
@@ -10,6 +11,7 @@ import java.util.List;
  */
 public interface TemplateService {
     Template findTemplateByID(Long id);
-    Template saveTemplate(Template template);
+    Template saveTemplate(Template template) throws Exception;
     List<Template> findAllTemplates();
+    boolean isSectionNameExist(Long tid, String name);
 }

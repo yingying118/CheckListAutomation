@@ -61,10 +61,8 @@ public class AttributeValueServiceImp implements AttributeValueService {
 
     @Override
     public Set<AttributeValue> findAttributeValueSetByHeadID(Long hid) {
-        Set<AttributeValue> result=new HashSet<AttributeValue>();
-        for(Attribute temp: niclHeadRepository.getOne(hid).getTemplate().getAttributes()){
-               result.addAll(temp.getAttributeValues());
-        }
-        return result;
+        return null;
     }
+
+
 }
