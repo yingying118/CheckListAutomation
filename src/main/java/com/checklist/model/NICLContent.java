@@ -16,9 +16,14 @@ public class NICLContent {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String value;
+    /*
     @ManyToOne
     @JoinColumn(name = "aid")
-    private Attribute attribute;
+    private Attribute attribute;*/
+
+    @ManyToOne
+    @JoinColumn(name = "said")
+    private SectionAttribute sectionAttribute;
 
 
     /**===================constructors ==================================**/
@@ -26,9 +31,14 @@ public class NICLContent {
         this.value = value;
     }
 
-    public NICLContent(String value, Attribute attribute) {
+    public NICLContent(String value, SectionAttribute sectionAttribute) {
         this.value = value;
-        this.attribute = attribute;
+        //this.attribute = attribute;
+        this.sectionAttribute=sectionAttribute;
+    }
+    public NICLContent(NICLHead niclHead, SectionAttribute sectionAttribute) {
+        this.sectionAttribute=sectionAttribute;
+        this.niclHead = niclHead;
     }
 
     public NICLContent(){
@@ -65,12 +75,20 @@ public class NICLContent {
     public void setNiclHead(NICLHead niclHead) {
         this.niclHead = niclHead;
     }
-
+/*
     public Attribute getAttribute() {
         return attribute;
     }
 
     public void setAttribute(Attribute attribute) {
         this.attribute = attribute;
+    }*/
+
+    public SectionAttribute getSectionAttribute() {
+        return sectionAttribute;
+    }
+
+    public void setSectionAttribute(SectionAttribute sectionAttribute) {
+        this.sectionAttribute = sectionAttribute;
     }
 }

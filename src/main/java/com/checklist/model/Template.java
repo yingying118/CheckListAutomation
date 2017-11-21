@@ -48,7 +48,7 @@ public class Template {
     public Set<Section> getSections() {
         return sections;
     }
-
+    //JsonIgnore
     public void setSections(Set<Section> sections) {
         this.sections = sections;
     }

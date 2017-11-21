@@ -3,6 +3,7 @@ package com.checklist.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -59,12 +60,15 @@ public class NICLHead {
     public NICLHead(String owner, String name) {
         this.owner = owner;
         this.name = name;
+        NICLContents = new HashSet<>();
     }
 
     public NICLHead(String owner, String name, String status) {
         this.owner = owner;
         this.name = name;
         this.status = status;
+        NICLContents = new HashSet<>();
+
     }
 
     public void setName(String name) {

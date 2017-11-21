@@ -67,26 +67,18 @@
         <div class="panel-body" ng-model="tempListCtrl.selectedTemplate">
             <fieldset>
                 <legend>Template: {{tempListCtrl.selectedTemplate.name}}</legend>
-                <form role="form">
                     <div>
                         <table class="table table-striped">
-                            <thead>
-                            <tr>
-                                <th>Attribute ID</th>
-                                <th>Attribute Name</th>
-                            </tr>
-                            </thead>
+
                             <tbody>
                             <tr ng-repeat="attribute in tempListCtrl.attributes | orderBy:'id'">
-                                <td>{{attribute.id}}</td>
-                                <td>{{attribute.name}}</td>
+
                             </tr>
                             </tbody>
                         </table>
 
                     </div>
 
-                </form>
             </fieldset>
 
 

@@ -8,12 +8,10 @@
 
         <!--this is generate form head page-->
         <div class="panel-body" ng-if="!NICLCtrl.showFormFlag && !NICLCtrl.showResultFlag">
-
             <fieldset>
                 <legend>Form Basic Info</legend>
                 <form role="form" name="niclform">
                     <div class="row" ng-model="NICLCtrl.newNICLHead">
-
                         <div class="col-sm-3">
                             <div class="form-group">
                                 <label>Please Select your group</label>
@@ -45,8 +43,6 @@
 
                             </div>
                         </div>
-
-
                     </div>
 
                 </form>
@@ -56,12 +52,9 @@
                 <legend>Template List</legend>
                 <form role="form">
                     <div>
-
-
                         <table class="table table-striped" ng-model="NICLCtrl.templates">
                             <thead>
                             <tr>
-
                                 <th>Template Name</th>
                             </tr>
                             </thead>
@@ -74,9 +67,7 @@
                                                       value="{{template.id}}" ng-change="NICLCtrl.getTemplateByID()">{{template.name}}</label>
                                     </div>
                                 </td>
-
                             </tr>
-
                             </tbody>
                         </table>
 
@@ -91,75 +82,42 @@
 
 
         </div>
+
+
+
+
         <!--this is for the action of filling form-->
         <div class="panel-body" ng-if="NICLCtrl.showFormFlag">
-
-            <table class="table resultform" style="margin-top: 15px;">
+            <table class="table resultform" style="margin-top: 15px;" ng-repeat="section in NICLCtrl.selectedTemplate.sections | orderBy:'section_order'">
                 <thead>
-                <tr class="title">
-                    <th colspan="4"><h1 class="panel-title">New Investment Checklist: {{NICLCtrl.newNICLHead.name}}</h1>
-                    </th>
-                </tr>
-                <tr>
-                    <th colspan="4">Please Fill The Form Below</th>
-                </tr>
+                <tr class="title"><th><h1 class="panel-title">{{section.name}}</h1></th></tr>
                 </thead>
-                <tbody ng-repeat="content in  NICLCtrl.NICLContentList">
-
-                <tr ng-if="$even">
-                    <td style="background-color: darkgrey;font-weight:bold;">
-                        {{NICLCtrl.NICLContentList[$index].attribute.name}}
-                        <a ng-if="NICLCtrl.NICLContentList[$index].attribute.description" href="#"  data-toggle="tooltip"  title="{{NICLCtrl.NICLContentList[$index].attribute.description}}">
-                            <span class="glyphicon glyphicon-info-sign"></span>
-                        </a>
+                <tbody>
+                <tr>
+                    <td>
+                        <table>
+                            <tbody>
+                            <tr ng-repeat="sectionAttribute in section.sectionAttributes">
+                                <td style="background-color: darkgrey;font-weight:bold;">{{sectionAttribute.attribute.name}}</td>
+                                <td ng-if="sectionAttribute.attribute.type=='text'">
+                                    <input class="form-control" type="text" required
+                                           id="{{sectionAttribute.attribute.name}}"
+                                           placeholder="Please Enter {{sectionAttribute.attribute.name}} value"/>
+                                </td>
+                                <td ng-if="sectionAttribute.attribute.type=='dropdown'">
+                                    <select class="form-control" required>
+                                        <option ng-repeat="option in sectionAttribute.attribute.attributeValues"
+                                                value="{{option.value}}">{{option.value}}
+                                        </option>
+                                    </select>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
                     </td>
-
-                    <td ng-if="NICLCtrl.NICLContentList[$index].attribute.type=='text'">
-                        <input class="form-control" type="text" required
-                               id="{{NICLCtrl.NICLContentList[$index].name}}"
-                               data-ng-model="NICLCtrl.NICLContentList[$index].value"
-                               ng-init="NICLCtrl.NICLContentList[$index].value=NICLCtrl.NICLContentList[$index].attribute.attributeValues[0].value"
-                               placeholder="Please Enter {{NICLCtrl.NICLContentList[$index].attribute.name}} value"/>
-                    </td>
-
-                    <td ng-if="NICLCtrl.NICLContentList[$index].attribute.type=='dropdown'">
-                        <select class="form-control"
-                                data-ng-model="NICLCtrl.NICLContentList[$index].value" required>
-                            <option ng-repeat="option in NICLCtrl.NICLContentList[$index].attribute.attributeValues"
-                                    value="{{option.value}}">{{option.value}}
-                            </option>
-                        </select>
-
-
-                    </td>
-
-
-                    <td ng-if="NICLCtrl.NICLContentList[$index+1]" style="background-color: darkgrey;font-weight:bold;">
-                       {{NICLCtrl.NICLContentList[$index+1].attribute.name}}
-                        <a ng-if="NICLCtrl.NICLContentList[$index+1].attribute.description" href="#"  data-toggle="tooltip"  title="{{NICLCtrl.NICLContentList[$index+1].attribute.description}}">
-                            <span class="glyphicon glyphicon-info-sign"></span>
-                        </a>
-                    </td>
-                    <td  ng-if="NICLCtrl.NICLContentList[$index+1].attribute.type=='text'">
-                        <input class="form-control" type="text" required
-                               id="{{NICLCtrl.NICLContentList[$index+1].name}}"
-                               data-ng-model="NICLCtrl.NICLContentList[$index+1].value"
-                               ng-init="NICLCtrl.NICLContentList[$index+1].value=NICLCtrl.NICLContentList[$index+1].attribute.attributeValues[0].value"
-                               placeholder="Please Enter {{NICLCtrl.NICLContentList[$index+1].attribute.name}} value"/>
-                    </td>
-                    <td ng-if="NICLCtrl.NICLContentList[$index+1].attribute.type=='dropdown'">
-                        <select class="form-control"
-                                data-ng-model="NICLCtrl.NICLContentList[$index+1].value" required>
-                            <option ng-repeat="option in NICLCtrl.NICLContentList[$index+1].attribute.attributeValues"
-                                    value="{{option.value}}">{{option.value}}
-                            </option>
-                        </select>
-
-                    </td>
-
                 </tr>
-
                 </tbody>
+
             </table>
             <button type="submit" class="btn btn-primary" ng-click="NICLCtrl.showReviewForm()">Confirm</button>
             <button type="reset" value="Reset" ng-click="NICLCtrl.resetForm()" class="btn btn-default">Reset</button>
@@ -217,20 +175,6 @@
             <div class="modal-body">
                 <p>Name: {{NICLCtrl.newNICLHead.owner}}<br>
                     Template Name: {{NICLCtrl.selectedTemplate.name}}</p>
-                <table class="table table-striped">
-                    <thead>
-                    <tr>
-                        <th>Attribute ID</th>
-                        <th>Attribute Name</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr ng-repeat="attribute in NICLCtrl.selectedTemplate.attributes | orderBy:'id'">
-                        <td>{{attribute.id}}</td>
-                        <td>{{attribute.name}}</td>
-                    </tr>
-                    </tbody>
-                </table>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

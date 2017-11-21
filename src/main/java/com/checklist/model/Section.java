@@ -76,10 +76,10 @@ public class Section {
     public void setName(String name) {
         this.name = name;
     }
+    @JsonIgnore
     public Template getTemplate() {
         return template;
     }
-    @JsonIgnore
     public void setTemplate(Template template) {
         this.template = template;
     }

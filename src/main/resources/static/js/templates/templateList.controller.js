@@ -15,6 +15,7 @@
         self.groups = [];
         self.templates=[];
         self.attributes=[];
+        self.sections=[];
         self.selectedGroupID;
         self.selectedTemplate=null;
         getAllGroups();
@@ -28,12 +29,12 @@
 
         function getTemplateAttributes(template){
             self.selectedTemplate = template;
-            console.log("template id:" + template.id);
-            templatesService.getTemplateAttributes(template.id).then(function (response){
+            console.log("template id:" + selectedTemplate.id);
+            templatesService.getTemplateAttributes(selectedTemplate.id).then(function (response){
                 self.attributes = response.data;
                 console.log('templates info:' + JSON.stringify(self.attributes));
             }, function (errResponse){
-                console.error('Error while getting the template attributes with tid : ' + template.id + ';' + errResponse.toString());
+                console.error('Error while getting the template attributes with tid : ' + selectedTemplate.id + ';' + errResponse.toString());
             })
 
         }

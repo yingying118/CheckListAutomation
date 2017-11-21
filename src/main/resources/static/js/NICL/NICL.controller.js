@@ -72,7 +72,6 @@
 
                 function (response) {
                     console.log('delete done with head id: ' + self.createdNICLHead.id);
-
                 },
                 function (errResponse) {
                     console.error('Error while deleting with head id: ' + self.createdNICLHead.id);
@@ -126,6 +125,7 @@
             NICLService.getTemplateByID(self.selectedTemplateID).then(function (response) {
                 self.selectedTemplate = response.data;
                 console.log('templates get!');
+                console.log('template content: ' + JSON.stringify(self.selectedTemplate));
             }, function (errResponse) {
                 console.error('Error while getting the template attributes with tid : ' + selectedTemplate.id + ';' + errResponse.toString());
             })
@@ -152,6 +152,7 @@
         function getNICLContentWithoutValueByHeadID(headID){
             console.log("fetching NICLContent Without Value" + headID);
             NICLService.getNICLContentWithoutValueByHeadID(headID).then(function (response) {
+
                 self.NICLContentList = response.data;
                 self.NICLContentListWithoutValue=angular.copy(self.NICLContentList);
                 self.inputValues=angular.copy(self.NICLContentList);
@@ -164,6 +165,7 @@
             })
 
         }
+
         function getNewNICLHeadInfo() {
             self.newNICLHead.template = self.selectedTemplate;
         }

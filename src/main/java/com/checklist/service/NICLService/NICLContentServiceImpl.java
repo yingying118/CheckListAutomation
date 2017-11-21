@@ -1,9 +1,6 @@
 package com.checklist.service.NICLService;
 
-import com.checklist.model.Attribute;
-import com.checklist.model.NICLContent;
-import com.checklist.model.NICLHead;
-import com.checklist.model.Template;
+import com.checklist.model.*;
 import com.checklist.repository.NICLContentRepository;
 import com.checklist.repository.NICLHeadRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +26,7 @@ public class NICLContentServiceImpl implements NICLContentService{
     @Override
     public void saveNICLContent(NICLContent niclContent) {
 
-        NICLContent toSave = new NICLContent(niclContent.getValue(),niclContent.getAttribute());
+        NICLContent toSave = new NICLContent(niclContent.getValue(),niclContent.getSectionAttribute());
         niclContentRepository.save(toSave);
         NICLHead head = niclContent.getNiclHead();
         toSave.setNiclHead(head);
@@ -40,11 +37,20 @@ public class NICLContentServiceImpl implements NICLContentService{
     public Set<NICLContent> findAllNICLContentByHeadID(Long niclHeadID) {
         return niclHeadService.findNICLHeadByID(niclHeadID).getNICLContents();
 
+
     }
 
     @Override
     public Set<NICLContent> findAllNICLContentWithoutValueByHeadID(Long niclHeadID) {
-        return null;
+        NICLHead head = niclHeadService.findNICLHeadByID(niclHeadID);
+        Template template = head.getTemplate();
+        NICLContent toSave;
+        Set<NICLContent> niclContentSet= new HashSet<>();
+        for(SectionAttribute sectionAttribute: template.getSectionAttributes()){
+            toSave=new NICLContent(head, sectionAttribute);
+            niclContentSet.add(toSave);
+        }
+        return niclContentSet;
     }
     /*
     @Override

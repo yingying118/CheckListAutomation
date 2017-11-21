@@ -80,7 +80,9 @@ public class RestNICLController {
     }
     @RequestMapping(value="/getniclcontentwithoutvaluebyhid/{hid}", method=RequestMethod.GET)
     public Set<NICLContent> getNICLContentSetWithoutValueByHeadID(@PathVariable("hid") Long id){
+
         return niclContentService.findAllNICLContentWithoutValueByHeadID(id);
+
     }
     @RequestMapping(value="/getniclcontentbyhid/{hid}", method=RequestMethod.GET)
     public Set<NICLContent> getNICLContentSetByHeadID(@PathVariable("hid") Long id){

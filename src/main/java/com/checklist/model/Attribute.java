@@ -24,9 +24,9 @@ public class Attribute{
 
     @OneToMany(mappedBy = "attribute",cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     private Set<AttributeValue> attributeValues;
-
+    /*
     @OneToMany(mappedBy = "attribute",cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-    private Set<NICLContent> niclContentSet;
+    private Set<NICLContent> niclContentSet;*/
 
     @OneToMany(mappedBy = "attribute",cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     public Set<SectionAttribute> sectionAttributes;
@@ -40,14 +40,14 @@ public class Attribute{
     public void setSectionAttributes(Set<SectionAttribute> sectionAttributes) {
         this.sectionAttributes = sectionAttributes;
     }
-
+/*
     public Set<NICLContent> getNiclContentSet() {
         return niclContentSet;
     }
     @JsonIgnore
     public void setNiclContentSet(Set<NICLContent> niclContentSet) {
         this.niclContentSet = niclContentSet;
-    }
+    }*/
 
     public Set<AttributeValue> getAttributeValues() {
         return attributeValues;

@@ -1,6 +1,8 @@
 package com.checklist.service.NICLService;
 
+import com.checklist.model.NICLContent;
 import com.checklist.model.NICLHead;
+import com.checklist.model.Section;
 import com.checklist.model.Template;
 import com.checklist.repository.GroupRepository;
 import com.checklist.repository.NICLHeadRepository;
@@ -35,10 +37,9 @@ public class NICLHeadServiceImpl implements NICLHeadService {
 
     @Override
     public NICLHead saveNICLHead(NICLHead niclHead) {
-        NICLHead toSave = new NICLHead(niclHead.getOwner(), niclHead.getName(),"not approved");
-        headRepository.save(toSave);
-        toSave.setTemplate(niclHead.getTemplate());
-        return toSave;
+        NICLHead saved = headRepository.save( new NICLHead(niclHead.getOwner(), niclHead.getName(),"not approved"));
+        saved.setTemplate(niclHead.getTemplate());
+        return saved;
     }
 
     @Override
