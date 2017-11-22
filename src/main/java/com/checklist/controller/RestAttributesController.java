@@ -26,4 +26,14 @@ public class RestAttributesController {
     public List<Attribute> getAllAttributes()  {
         return attributeService.findAllAttributes();
     }
+    @RequestMapping(value="/getnonstaticattributes", method = RequestMethod.GET)
+    public List<Attribute> getNonStaticAttributes()  {
+        return attributeService.findAllNonStaticAttributes();
+    }
+
+    @RequestMapping(value="/getstaticattributes", method = RequestMethod.GET)
+    public List<Attribute> getStaticAttributes()  {
+        return attributeService.findAllStaticAttibutes();
+    }
+
 }

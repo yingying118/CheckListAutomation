@@ -29,10 +29,10 @@ String base = "http://localhost:8080";
         RestTemplate restTemplate = new RestTemplate();
         return restTemplate.getForObject(base+"/groups/getallgroups",List.class);
     }
-    @RequestMapping(value="/getallattributes", method = RequestMethod.GET)
+    @RequestMapping(value="/getnonstaticattributes", method = RequestMethod.GET)
     public List<Attribute> getAttributes()  {
         RestTemplate restTemplate = new RestTemplate();
-        return restTemplate.getForObject(base+"/attributes/getallattributes",List.class);
+        return restTemplate.getForObject(base+"/attributes/getnonstaticattributes",List.class);
     }
     @RequestMapping(value="/getgroupbyid/{gid}", method=RequestMethod.GET)
     public Group getGroupById(@PathVariable("gid") Long id)  {

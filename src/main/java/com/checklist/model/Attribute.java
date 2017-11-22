@@ -19,14 +19,15 @@ public class Attribute{
     private String name;
     private String type;
     private String description;
+    private boolean isStatic;
 
 
 
     @OneToMany(mappedBy = "attribute",cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     private Set<AttributeValue> attributeValues;
-    /*
+
     @OneToMany(mappedBy = "attribute",cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-    private Set<NICLContent> niclContentSet;*/
+    private Set<NICLContent> niclContentSet;
 
     @OneToMany(mappedBy = "attribute",cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     public Set<SectionAttribute> sectionAttributes;
@@ -40,14 +41,14 @@ public class Attribute{
     public void setSectionAttributes(Set<SectionAttribute> sectionAttributes) {
         this.sectionAttributes = sectionAttributes;
     }
-/*
+
     public Set<NICLContent> getNiclContentSet() {
         return niclContentSet;
     }
     @JsonIgnore
     public void setNiclContentSet(Set<NICLContent> niclContentSet) {
         this.niclContentSet = niclContentSet;
-    }*/
+    }
 
     public Set<AttributeValue> getAttributeValues() {
         return attributeValues;
@@ -91,16 +92,26 @@ public class Attribute{
         this.description = description;
     }
 
+    public boolean isStatic() {
+        return isStatic;
+    }
+
+    public void setStatic(boolean aStatic) {
+        isStatic = aStatic;
+    }
+
     public Attribute(){
         super();
     }
     public Attribute(String name) {
         this.name = name;
+        this.isStatic = false;
     }
 
     public Attribute(String name,String type) {
         this.name = name;
         this.type = type;
+        this.isStatic=false;
         sectionAttributes = new HashSet<>();
     }
 
@@ -109,11 +120,17 @@ public class Attribute{
         this.name = name;
         this.type = type;
         this.description = description;
+        this.isStatic=false;
         sectionAttributes = new HashSet<>();
-
+    }
+    public Attribute(String name, String type, boolean isStatic) {
+        this.name = name;
+        this.type = type;
+        this.isStatic=isStatic;
+        sectionAttributes = new HashSet<>();
     }
 
-    @Override
+        @Override
     public String toString() {
         return "Attribute{" +
                 "id=" + id +

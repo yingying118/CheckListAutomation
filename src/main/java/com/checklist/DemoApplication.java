@@ -12,6 +12,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import javax.naming.directory.AttributeInUseException;
 import javax.transaction.Transactional;
 import java.util.Collection;
 import java.util.HashSet;
@@ -122,6 +123,18 @@ public class DemoApplication implements CommandLineRunner{
         }};
         attributeValueService.saveAttributeValueSet(a10options);
 
+        /*for static attributes*/
+        Attribute a11 = new Attribute("Prepayment Schedule", "text", true);
+        Attribute a12 = new Attribute("Call Schedule", "text", true);
+        Attribute a13 = new Attribute("Agent Name", "text", true);
+        Attribute a14 = new Attribute("Contact Name", "text", true);
+        Attribute a15 = new Attribute("Telephone", "text", true);
+        Attribute a16 = new Attribute("Email", "text", true);
+        Attribute a17 = new Attribute("Prepared name", "text", true);
+        Attribute a18 = new Attribute("Prepared date", "text", true);
+        Attribute a19 = new Attribute("Reviewed name", "text", true);
+        Attribute a20 = new Attribute("Reviewed date", "text", true);
+        /*--------------------*/
 
         attributeRepository.save(a1);
         attributeRepository.save(a2);
@@ -133,6 +146,16 @@ public class DemoApplication implements CommandLineRunner{
         attributeRepository.save(a8);
         attributeRepository.save(a9);
         attributeRepository.save(a10);
+        attributeRepository.save(a11);
+        attributeRepository.save(a12);
+        attributeRepository.save(a13);
+        attributeRepository.save(a14);
+        attributeRepository.save(a15);
+        attributeRepository.save(a16);
+        attributeRepository.save(a17);
+        attributeRepository.save(a18);
+        attributeRepository.save(a19);
+        attributeRepository.save(a20);
 
         Template t1 = new Template("Template T1", g1);
         Template t2 = new Template("Template T2", g2);
@@ -151,35 +174,46 @@ public class DemoApplication implements CommandLineRunner{
         templateRepository.save(t1);
         t1.setSections(sectionSet);
 
-        SectionAttribute sectionAttribute = new SectionAttribute();
-        sectionAttribute.setAttribute(a1);
-        sectionAttribute.setTemplate(t1);
-        sectionAttribute.setSection(s2);
-        s2.getSectionAttributes().add(sectionAttribute);
+        SectionAttribute sectionAttribute1 = new SectionAttribute(t1,s1,a1,1);
+        SectionAttribute sectionAttribute2 = new SectionAttribute(t1,s1,a2,2);
+        SectionAttribute sectionAttribute3 = new SectionAttribute(t1,s1,a3,3);
+        SectionAttribute sectionAttribute4 = new SectionAttribute(t1,s2,a4,6);
+        SectionAttribute sectionAttribute5 = new SectionAttribute(t1,s2,a5,5);
+        s1.getSectionAttributes().add(sectionAttribute1);
+        s1.getSectionAttributes().add(sectionAttribute2);
+        s1.getSectionAttributes().add(sectionAttribute3);
+        s2.getSectionAttributes().add(sectionAttribute4);
+        s2.getSectionAttributes().add(sectionAttribute5);
 
 
 
 /*
         Template t3 = new Template("Template T3", g1);
-        Section s3=new Section("OverviewT3", 1,t3 );
-        Section s4=new Section("OverviewT4", 2,t3);
+        Section s3=new Section("Overview", 1,t3 );
+        Section s4=new Section("Security", 2,t3);
 
-        Set<Section> sectionSet=new HashSet<Section>(){{
+        Set<Section> sectionSetFort3=new HashSet<Section>(){{
             add(s3);
             add(s4);
         }};
 
-        t3.setSections(sectionSet);
+        t3.setSections(sectionSetFort3);
         templateService.saveTemplate(t3);
 
-        SectionAttribute sectionAttribute = new SectionAttribute();
-        sectionAttribute.setAttribute(a1);
-        sectionAttribute.setSection(s2);
-        sectionAttribute.setTemplate(t1);
-        sectionAttribute.setOrder(1);
+        SectionAttribute sectionAttribute1 = new SectionAttribute(t3,s3,a1,1);
+        a1.getSectionAttributes().add(sectionAttribute1);
+        SectionAttribute sectionAttribute2 = new SectionAttribute(t3,s3,a2,2);
+        a2.getSectionAttributes().add(sectionAttribute2);
+        SectionAttribute sectionAttribute3 = new SectionAttribute(t3,s3,a3,3);
+        a3.getSectionAttributes().add(sectionAttribute3);
+        SectionAttribute sectionAttribute4 = new SectionAttribute(t3,s4,a4,6);
+        a4.getSectionAttributes().add(sectionAttribute4);
+        SectionAttribute sectionAttribute5 = new SectionAttribute(t3,s4,a5,5);
+        a5.getSectionAttributes().add(sectionAttribute5);*/
 
-        a1.getSectionAttributes().add(sectionAttribute);
-*/
+
+
+
 
 
 /*

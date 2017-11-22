@@ -22,7 +22,8 @@
             getGroupById: getGroupById,
             getAllAttributes:getAllAttributes,
             getGroupTemplates: getGroupTemplates,
-            getTemplateAttributes: getTemplateAttributes
+            getTemplateAttributes: getTemplateAttributes,
+            getNonStaticAttributes:getNonStaticAttributes,
         };
 
         return services;
@@ -71,6 +72,11 @@
         function getAllAttributes() {
             console.log('get Attributes');
             var url = urlBase + '/getallattributes';
+            return $http.get(url);
+        }
+        function getNonStaticAttributes(){
+            console.log('get Non Static Attributes');
+            var url = urlBase + '/getnonstaticattributes';
             return $http.get(url);
         }
 

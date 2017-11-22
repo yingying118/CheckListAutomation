@@ -42,7 +42,7 @@ public class RestNICLController {
     }
 
     @RequestMapping(value="/createniclcontentset",method = RequestMethod.POST)
-    public void createNICLHead(@RequestBody Set<NICLContent> niclContentSet){
+    public void createContentSet(@RequestBody Set<NICLContent> niclContentSet){
         niclContentService.saveNICLContentList(niclContentSet);
     }
 

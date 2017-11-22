@@ -31,10 +31,9 @@
 
 
         getAllGroups();
-        getAllAttributes();
+        getNonStaticAttributes();
         initPage();
 
-        this.getAllAttributes = getAllAttributes;
         this.createNewTemplate = createNewTemplate;
         this.resetNewTemplate = resetNewTemplate;
         this.getGroupById = getGroupById;
@@ -147,10 +146,9 @@
             self.selectedGroup=null;
 
         }
-        function getAllAttributes() {
-            templatesService.getAllAttributes().then(function (response) {
+        function getNonStaticAttributes() {
+            templatesService.getNonStaticAttributes().then(function (response) {
                     self.attributes = response.data;
-
                     resetNewTemplate();
                 }, function (errResponse) {
                     console.error('Error while get all attributes : ' + errResponse.data.message);

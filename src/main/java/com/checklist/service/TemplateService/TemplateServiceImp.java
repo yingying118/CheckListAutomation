@@ -58,6 +58,8 @@ public class TemplateServiceImp implements TemplateService {
                 }
 
             }
+
+            //save static section here:
         }
         return temp;
 

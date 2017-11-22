@@ -16,11 +16,9 @@ public class SectionAttribute implements Serializable {
         @Id
         @GeneratedValue(strategy = GenerationType.AUTO)
         private Long id;
-
         public Long getId() {
                 return id;
         }
-
         public void setId(Long id) {
                 this.id = id;
         }
@@ -29,11 +27,9 @@ public class SectionAttribute implements Serializable {
         @JoinColumn(name="sid")
         private Section section;
 
-
         @ManyToOne
         @JoinColumn(name="tid")
         private Template template;
-
 
         @ManyToOne
         @JoinColumn(name="aid")
@@ -42,7 +38,16 @@ public class SectionAttribute implements Serializable {
         @Column(name = "attribute_order")
         private int order;
 
-
+        public SectionAttribute(Template template, Section section, Attribute attribute, int order) {
+                this.section = section;
+                this.template = template;
+                this.attribute = attribute;
+                this.order = order;
+        }
+        public SectionAttribute(){
+                super();
+        }
+        /*
         @OneToMany(mappedBy = "sectionAttribute",cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
         private Set<NICLContent> niclContentSet;
 
@@ -52,7 +57,7 @@ public class SectionAttribute implements Serializable {
         @JsonIgnore
         public void setNiclContentSet(Set<NICLContent> niclContentSet) {
                 this.niclContentSet = niclContentSet;
-        }
+        }*/
 
         public Section getSection() {
                 return section;
@@ -61,6 +66,7 @@ public class SectionAttribute implements Serializable {
         public void setSection(Section section) {
                 this.section = section;
         }
+
         public Template getTemplate() {
                 return template;
         }

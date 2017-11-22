@@ -13,4 +13,6 @@ public interface AttributeService {
     void saveAttribute(Attribute attri);
     List<Attribute> findAllAttributes();
     boolean isAttributeExist(String name);
+    List<Attribute> findAllStaticAttibutes();
+    List<Attribute> findAllNonStaticAttributes();
 }

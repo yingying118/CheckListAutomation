@@ -22,7 +22,6 @@
     NICLController.$inject = ['NICLService'];
 
 
-
     function NICLController(NICLService) {
 
         $(document).ready(function(){
@@ -44,8 +43,6 @@
         self.showResultFlag = false;
         /* for render third page */
 
-        self.NICLContentList=[];
-        self.NICLContentListWithoutValue=[];
         getAllGroups();
 
         this.getGroupTemplates = getGroupTemplates;
@@ -59,6 +56,13 @@
 
 
         self.inputValues=[];
+
+        /*Value Object */
+        self.templateVO={};
+        self.NICLContentListWithoutValue=[];
+
+        /*Transfer Data Model*/
+        self.NICLContentList=[];
 
         /**
          * Public functions
@@ -83,16 +87,17 @@
 
         function resetForm(){
             self.NICLContentList=angular.copy(self.NICLContentListWithoutValue);
+            getTemplateVOSorted();
         }
 
 
         function showReviewForm(){
             self.showResultFlag = true;
             self.showFormFlag = false;
-
         }
 
         function submitContent(){
+            getNICLContentData();
             NICLService.createNICLContentSet(self.NICLContentList).then(
 
                 function (response) {
@@ -124,6 +129,7 @@
             console.log("template id:" + self.selectedTemplateID);
             NICLService.getTemplateByID(self.selectedTemplateID).then(function (response) {
                 self.selectedTemplate = response.data;
+                sortTemplateSectionAttributes(self.selectedTemplate);
                 console.log('templates get!');
                 console.log('template content: ' + JSON.stringify(self.selectedTemplate));
             }, function (errResponse) {
@@ -147,7 +153,18 @@
         /**
          * Private functions
          */
+        function getNICLContentData(){
+            self.NICLContentList.forEach(function (contentElement) {
+                self.templateVO.sections.forEach(function (section){
+                    section.sectionAttributes.forEach(function(sectionAttribute){
+                        if(sectionAttribute.attribute.id ==  contentElement.attribute.id){
+                            contentElement.value= sectionAttribute.attribute.inputValue;
+                        }
+                    })
+                })
+            })
 
+        }
 
         function getNICLContentWithoutValueByHeadID(headID){
             console.log("fetching NICLContent Without Value" + headID);
@@ -170,20 +187,31 @@
             self.newNICLHead.template = self.selectedTemplate;
         }
 
-        function createNewNIClHead() {
 
+        function createNewNIClHead() {
             NICLService.createNICLHead(self.newNICLHead).then(
                 function (response) {
                     self.createdNICLHead=response.data;
                     console.log('createdNICLHead with hid: ' + self.createdNICLHead.id );
-
                     console.log('new NICLHead created!' );
+                    //self.templateVO = self.selectedTemplate;
+                    getTemplateVOSorted();
+
                     getNICLContentWithoutValueByHeadID(self.createdNICLHead.id );
                 },
                 function (errResponse) {
                     console.error('Error while creating NICLHead: ' + errResponse.data.message);
                 }
             );
+        }
+        function sortTemplateSectionAttributes(templateData){
+            templateData.sections.forEach(function (section) {
+                section.sectionAttributes.sort(function(sa1,sa2){return sa1.order - sa2.order});
+            })
+        }
+
+        function getTemplateVOSorted() {
+            self.templateVO = angular.copy(self.selectedTemplate);
         }
         function getAllGroups() {
             NICLService.getGroups().then(function (response) {
@@ -195,6 +223,7 @@
                 }
             )
         }
+
         function clearCachedData(){
             self.templates = [];
             self.selectedGroupID = null;

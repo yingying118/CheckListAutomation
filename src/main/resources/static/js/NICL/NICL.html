@@ -27,17 +27,18 @@
                         <div class="col-sm-3">
                             <div class="form-group">
                                 <label>User Name</label>
-                                <input name="username" ng-model="NICLCtrl.newNICLHead.owner" class="form-control" type="text"
+                                <input name="username" ng-model="NICLCtrl.newNICLHead.owner" class="form-control"
+                                       type="text"
                                        placeholder="Please Enter Your Name" required/>
                                 <span ng-show="niclform.username.$touched && niclform.username.$invalid">The user name is required.</span>
-
-
                             </div>
                         </div>
+
                         <div class="col-sm-3">
                             <div class="form-group">
                                 <label>Form Name</label>
-                                <input name="formname" ng-model="NICLCtrl.newNICLHead.name" class="form-control" type="text"
+                                <input name="formname" ng-model="NICLCtrl.newNICLHead.name" class="form-control"
+                                       type="text"
                                        placeholder="Please Enter Form Name" required/>
                                 <span ng-show="niclform.formname.$touched && niclform.formname.$invalid">The form name is required.</span>
 
@@ -73,44 +74,73 @@
 
 
                     </div>
-                    <button ng-disabled="niclform.$invalid" type="submit" class="btn btn-primary" data-toggle="modal" data-target="#confirmModal">Confirm
+                    <button ng-disabled="niclform.$invalid" type="submit" class="btn btn-primary" data-toggle="modal"
+                            data-target="#confirmModal">Confirm
                     </button>
-                    <button type="reset" class="btn btn-default" value="Reset" ng-click="NICLCtrl.clearAll()">Reset</button>
+                    <button type="reset" class="btn btn-default" value="Reset" ng-click="NICLCtrl.clearAll()">Reset
+                    </button>
                 </form>
             </fieldset>
-
 
 
         </div>
 
 
-
-
         <!--this is for the action of filling form-->
         <div class="panel-body" ng-if="NICLCtrl.showFormFlag">
-            <table class="table resultform" style="margin-top: 15px;" ng-repeat="section in NICLCtrl.selectedTemplate.sections | orderBy:'section_order'">
+            <table class="table resultform" style="margin-top: 15px;"
+                   ng-repeat="section in NICLCtrl.templateVO.sections | orderBy:'section_order'">
                 <thead>
-                <tr class="title"><th><h1 class="panel-title">{{section.name}}</h1></th></tr>
+                <tr class="title">
+                    <th><h1 class="panel-title">{{section.name}}</h1></th>
+                </tr>
                 </thead>
                 <tbody>
                 <tr>
                     <td>
-                        <table>
-                            <tbody>
-                            <tr ng-repeat="sectionAttribute in section.sectionAttributes">
-                                <td style="background-color: darkgrey;font-weight:bold;">{{sectionAttribute.attribute.name}}</td>
-                                <td ng-if="sectionAttribute.attribute.type=='text'">
-                                    <input class="form-control" type="text" required
-                                           id="{{sectionAttribute.attribute.name}}"
-                                           placeholder="Please Enter {{sectionAttribute.attribute.name}} value"/>
+                        <table width="100%">
+                            <tbody ng-repeat="sectionAttribute in section.sectionAttributes | orderBy:'order'">
+                            <tr ng-if="$even">
+                                <td style="background-color: darkgrey;font-weight:bold;">
+                                    {{section.sectionAttributes[$index].attribute.name}}
                                 </td>
-                                <td ng-if="sectionAttribute.attribute.type=='dropdown'">
-                                    <select class="form-control" required>
-                                        <option ng-repeat="option in sectionAttribute.attribute.attributeValues"
+                                <td ng-if="section.sectionAttributes[$index].attribute.type=='text'">
+                                    <input class="form-control" type="text" required
+                                           id="{{section.sectionAttributes[$index].attribute.name}}"
+                                           data-ng-model="section.sectionAttributes[$index].attribute.inputValue"
+                                           placeholder="Please Enter {{section.sectionAttributes[$index].attribute.name}} value"/>
+                                </td>
+                                <td ng-if="section.sectionAttributes[$index].attribute.type=='dropdown'">
+                                    <select class="form-control" data-ng-model="section.sectionAttributes[$index].attribute.inputValue"
+                                            required>
+                                        <option ng-repeat="option in section.sectionAttributes[$index].attribute.attributeValues"
                                                 value="{{option.value}}">{{option.value}}
                                         </option>
                                     </select>
                                 </td>
+
+
+
+                                <td style="background-color: darkgrey;font-weight:bold;">
+                                    {{section.sectionAttributes[$index+1].attribute.name}}
+                                </td>
+                                <td ng-if="section.sectionAttributes[$index+1].attribute.type=='text'">
+                                    <input class="form-control" type="text" required
+                                           id="{{section.sectionAttributes[$index+1].attribute.name}}"
+                                           data-ng-model="section.sectionAttributes[$index+1].attribute.inputValue"
+                                           placeholder="Please Enter {{section.sectionAttributes[$index+1].attribute.name}} value"/>
+                                </td>
+                                <td ng-if="section.sectionAttributes[$index+1].attribute.type=='dropdown'">
+                                    <select class="form-control" data-ng-model="section.sectionAttributes[$index+1].attribute.inputValue"
+                                            required>
+                                        <option ng-repeat="option in section.sectionAttributes[$index+1].attribute.attributeValues"
+                                                value="{{option.value}}">{{option.value}}
+                                        </option>
+                                    </select>
+                                </td>
+
+
+
                             </tr>
                             </tbody>
                         </table>
@@ -118,46 +148,53 @@
                 </tr>
                 </tbody>
 
+
             </table>
             <button type="submit" class="btn btn-primary" ng-click="NICLCtrl.showReviewForm()">Confirm</button>
             <button type="reset" value="Reset" ng-click="NICLCtrl.resetForm()" class="btn btn-default">Reset</button>
-            <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#goBackModal">Go Back</button>
+            <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#goBackModal">Go Back
+            </button>
+            <pre>{{NICLCtrl.templateVO|json}}</pre>
 
         </div>
 
 
         <!--this is for the overview of filling form-->
         <div class="panel-body" ng-if="!NICLCtrl.showFormFlag && NICLCtrl.showResultFlag">
-            <table class="table resultform" style="margin-top: 15px;">
+            <table class="table resultform" style="margin-top: 15px;"
+                   ng-repeat="section in NICLCtrl.templateVO.sections | orderBy:'section_order'">
                 <thead>
                 <tr class="title">
-                    <th colspan="4"><h1 class="panel-title">New Investment Checklist: {{NICLCtrl.newNICLHead.name}}</h1>
-                    </th>
-                </tr>
-                <tr>
-                    <th colspan="4">OVERVIEW</th>
+                    <th><h1 class="panel-title">{{section.name}}</h1></th>
                 </tr>
                 </thead>
-                <tbody ng-repeat="content in  NICLCtrl.NICLContentList">
+                <tbody>
+                    <tr>
+                        <td>
+                            <table class="table resultform" style="margin-top: 15px; width:100%">
+                                <tbody ng-repeat="sectionAttribute in section.sectionAttributes | orderBy:'order'">
+                                <tr ng-if="$even">
+                                        <td style="background-color: darkgrey;font-weight:bold;">
+                                        {{section.sectionAttributes[$index].attribute.name}}
+                                        </td>
+                                        <td>{{section.sectionAttributes[$index].attribute.inputValue}}</td>
 
-                <tr ng-if="$even">
-                    <td style="background-color: darkgrey; font-weight:bold;">
+                                    <td style="background-color: darkgrey;font-weight:bold;">
+                                        {{section.sectionAttributes[$index+1].attribute.name}}
+                                    </td>
+                                    <td>{{section.sectionAttributes[$index+1].attribute.inputValue}}</td>
 
-                        {{NICLCtrl.NICLContentList[$index].attribute.name}}
-                    </td>
-                    <td>{{NICLCtrl.NICLContentList[$index].value}}</td>
-                    <td ng-if="NICLCtrl.NICLContentList[$index+1]" style="background-color: darkgrey;font-weight:bold;">
-
-                        {{NICLCtrl.NICLContentList[$index+1].attribute.name}}
-                    </td>
-                    <td>{{NICLCtrl.NICLContentList[$index+1].value}}</td>
-                </tr>
-
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
 
             <button type="submit" class="btn btn-primary" ng-click="NICLCtrl.submitContent()">Confirm</button>
             <button type="button" ng-click="NICLCtrl.backToForm()" class="btn btn-default">Go Back</button>
+            <pre>{{NICLCtrl.NICLContentList|json}}</pre>
         </div>
 
     </div>

@@ -26,8 +26,9 @@ public class NICLContentServiceImpl implements NICLContentService{
     @Override
     public void saveNICLContent(NICLContent niclContent) {
 
-        NICLContent toSave = new NICLContent(niclContent.getValue(),niclContent.getSectionAttribute());
+        NICLContent toSave = new NICLContent(niclContent.getValue(),niclContent.getAttribute());
         niclContentRepository.save(toSave);
+
         NICLHead head = niclContent.getNiclHead();
         toSave.setNiclHead(head);
 
@@ -47,7 +48,8 @@ public class NICLContentServiceImpl implements NICLContentService{
         NICLContent toSave;
         Set<NICLContent> niclContentSet= new HashSet<>();
         for(SectionAttribute sectionAttribute: template.getSectionAttributes()){
-            toSave=new NICLContent(head, sectionAttribute);
+
+            toSave=new NICLContent(head, sectionAttribute.getAttribute());
             niclContentSet.add(toSave);
         }
         return niclContentSet;
