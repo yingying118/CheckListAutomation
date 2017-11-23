@@ -17,22 +17,15 @@ public class Section {
     private Long id;
     private String name;
     private int section_order;
+    private boolean isStatic;
 
-    public int getSection_order() {
-        return section_order;
-    }
-
-    public void setSection_order(int section_order) {
-        this.section_order = section_order;
-    }
 
     @ManyToOne
     @JoinColumn(name = "tid")
     private Template template;
-
-
     @OneToMany(mappedBy = "section", cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     private Set<SectionAttribute> sectionAttributes;
+
 
     public Set<SectionAttribute> getSectionAttributes() {
         return sectionAttributes;
@@ -42,6 +35,7 @@ public class Section {
     }
     public Section(String name) {
         this.name = name;
+        this.isStatic=false;
     }
 
     public Section(String name, int section_order, Template template) {
@@ -49,13 +43,22 @@ public class Section {
         this.section_order = section_order;
         this.template = template;
         sectionAttributes=new HashSet<>();
+        this.isStatic=false;
     }
 
     public Section(String name, int section_order) {
         this.name = name;
         this.section_order = section_order;
         sectionAttributes=new HashSet<>();
+        this.isStatic=false;
+    }
 
+    public Section(String name, int section_order, Template template, boolean isStatic) {
+        this.name = name;
+        this.section_order = section_order;
+        this.template = template;
+        sectionAttributes=new HashSet<>();
+        this.isStatic=isStatic;
     }
 
     public Section(){
@@ -82,5 +85,20 @@ public class Section {
     }
     public void setTemplate(Template template) {
         this.template = template;
+    }
+    public int getSection_order() {
+        return section_order;
+    }
+
+    public void setSection_order(int section_order) {
+        this.section_order = section_order;
+    }
+
+    public boolean isStatic() {
+        return isStatic;
+    }
+
+    public void setStatic(boolean aStatic) {
+        isStatic = aStatic;
     }
 }

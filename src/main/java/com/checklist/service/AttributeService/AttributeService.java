@@ -1,7 +1,6 @@
 package com.checklist.service.AttributeService;
 
 import com.checklist.model.Attribute;
-import com.checklist.model.Group;
 
 import java.util.List;
 
@@ -15,4 +14,5 @@ public interface AttributeService {
     boolean isAttributeExist(String name);
     List<Attribute> findAllStaticAttibutes();
     List<Attribute> findAllNonStaticAttributes();
+    Attribute findStaticAttrByName(String name) throws Exception;
 }

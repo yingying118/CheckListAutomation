@@ -54,7 +54,7 @@
             temp.selectAttribute.selectedItems=[];
 
 
-        };
+        }
 
         function removeSection(){
             var lastItem = self.newSections.length-1;
@@ -102,7 +102,7 @@
                     console.error('Error while creating project: ' + errResponse.data.message);
                 }
             );
-        };
+        }
 
 
 
@@ -146,6 +146,7 @@
             self.selectedGroup=null;
 
         }
+
         function getNonStaticAttributes() {
             templatesService.getNonStaticAttributes().then(function (response) {
                     self.attributes = response.data;

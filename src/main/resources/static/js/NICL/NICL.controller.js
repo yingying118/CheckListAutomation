@@ -41,6 +41,10 @@
         self.disableFlag = false;
         self.showFormFlag = false;
         self.showResultFlag = false;
+
+        self.staticAttributeVO={};
+
+
         /* for render third page */
 
         getAllGroups();

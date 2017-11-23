@@ -7,12 +7,16 @@ import com.checklist.model.Template;
 import com.checklist.repository.AttributeRepository;
 import com.checklist.repository.SectionRepository;
 import com.checklist.repository.TemplateRepository;
+import com.checklist.service.AttributeService.AttributeService;
+import com.checklist.service.SectionAttributeService.SectionAttributeService;
 import com.checklist.service.SectionService.SectionService;
 import com.checklist.service.TemplateService.TemplateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.w3c.dom.Attr;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -29,7 +33,10 @@ public class TemplateServiceImp implements TemplateService {
     @Autowired
     private SectionRepository sectionRepository;
     @Autowired
-    private AttributeRepository attributeRepository;
+    private SectionAttributeService sectionAttributeService;
+    @Autowired
+    private AttributeService attributeService;
+
     @Override
     public Template findTemplateByID(Long id) {
         return templateRepository.findOne(id);
@@ -59,7 +66,41 @@ public class TemplateServiceImp implements TemplateService {
 
             }
 
-            //save static section here:
+            //save static finance_contact here:
+            Section schedule= new Section("Schedule", 100,temp,true);
+            sectionRepository.save(schedule);
+            temp.getSections().add(schedule);
+
+            List<Attribute> scheduleAttrs = new ArrayList<Attribute>(){{
+                try{
+                    add(attributeService.findStaticAttrByName("Prepayment Schedule"));
+                    add(attributeService.findStaticAttrByName("Call Schedule"));
+                }catch (Exception e){
+                    throw e;
+                }
+            }};
+            sectionAttributeService.saveStaticSectionAttribute(schedule,temp,scheduleAttrs);
+
+
+
+            //save static finance_contact here:
+            Section finance_contact= new Section("Finance Contact", 101,temp,true);
+            sectionRepository.save(finance_contact);
+            temp.getSections().add(finance_contact);
+
+            List<Attribute> financeContactAttrs = new ArrayList<Attribute>(){{
+                try{
+                    add(attributeService.findStaticAttrByName("Agent Name"));
+                    add(attributeService.findStaticAttrByName("Contact Name"));
+                    add(attributeService.findStaticAttrByName("Telephone"));
+                    add(attributeService.findStaticAttrByName("Email"));
+
+                }catch (Exception e){
+                    throw e;
+                }
+            }};
+            sectionAttributeService.saveStaticSectionAttribute(finance_contact,temp,financeContactAttrs);
+
         }
         return temp;
 

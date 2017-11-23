@@ -5960,8 +5960,24 @@ dd {
 .resultform td{
   width: 25%;
 }
+.resultform .attrname{
+  background-color: darkgray;
+  font-weight:bold;
+  text-align: right;
+  padding-right: 6px;
+
+}
 .resultform .title th{
   background-color: black;
   color:white;
   font-weight:bold;
+  padding-top:10px;
+  padding-bottom:10px;
+}
+.resultform .title td{
+  background-color: black;
+  color:white;
+  font-weight:bold;
+  padding-top:10px;
+  padding-bottom:10px;
 }

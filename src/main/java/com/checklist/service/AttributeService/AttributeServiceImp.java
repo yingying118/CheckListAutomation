@@ -2,9 +2,6 @@ package com.checklist.service.AttributeService;
 
 import com.checklist.model.Attribute;
 import com.checklist.repository.AttributeRepository;
-import com.checklist.repository.TemplateRepository;
-import com.checklist.service.AttributeService.AttributeService;
-import org.hibernate.annotations.Where;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,8 +17,7 @@ import java.util.List;
 public class AttributeServiceImp implements AttributeService {
     @Autowired
     private AttributeRepository attributeRepository;
-    @Autowired
-    private TemplateRepository templateRepository;
+
     @Override
     public Attribute findAttributeByID(Long id) {
         return attributeRepository.getOne(id);
@@ -36,7 +32,6 @@ public class AttributeServiceImp implements AttributeService {
     @Override
     public List<Attribute> findAllAttributes() {
        return attributeRepository.findAll();
-
     }
 
 
@@ -71,6 +66,15 @@ public class AttributeServiceImp implements AttributeService {
             }
         }
         return nonStaticAttributes;
+    }
+
+    @Override
+    public Attribute findStaticAttrByName(String name) throws Exception {
+        for(Attribute attr: findAllStaticAttibutes())
+           if(attr.getName().equalsIgnoreCase(name)){
+            return attr;
+           }
+           throw new Exception("there is no static attribute in the database named: " + name);
     }
 
 }

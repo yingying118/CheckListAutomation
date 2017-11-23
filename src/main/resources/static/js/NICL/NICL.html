@@ -88,21 +88,27 @@
 
         <!--this is for the action of filling form-->
         <div class="panel-body" ng-if="NICLCtrl.showFormFlag">
-            <table class="table resultform" style="margin-top: 15px;"
-                   ng-repeat="section in NICLCtrl.templateVO.sections | orderBy:'section_order'">
-                <thead>
+            <table class="resultform"
+                   ng-repeat="section in NICLCtrl.templateVO.sections | orderBy:'section_order'"
+                   ng-if="!section.static" width="100%">
+                <tbody>
                 <tr class="title">
                     <th><h1 class="panel-title">{{section.name}}</h1></th>
                 </tr>
-                </thead>
-                <tbody>
                 <tr>
                     <td>
                         <table width="100%">
                             <tbody ng-repeat="sectionAttribute in section.sectionAttributes | orderBy:'order'">
                             <tr ng-if="$even">
-                                <td style="background-color: darkgrey;font-weight:bold;">
+                                <td class="attrname">
                                     {{section.sectionAttributes[$index].attribute.name}}
+
+                                    <a ng-if="section.sectionAttributes[$index].attribute.description" href="#"
+                                       data-toggle="tooltip"
+                                       title="{{section.sectionAttributes[$index].attribute.description}}">
+                                        <span class="glyphicon glyphicon-info-sign"></span>
+                                    </a>
+
                                 </td>
                                 <td ng-if="section.sectionAttributes[$index].attribute.type=='text'">
                                     <input class="form-control" type="text" required
@@ -111,7 +117,8 @@
                                            placeholder="Please Enter {{section.sectionAttributes[$index].attribute.name}} value"/>
                                 </td>
                                 <td ng-if="section.sectionAttributes[$index].attribute.type=='dropdown'">
-                                    <select class="form-control" data-ng-model="section.sectionAttributes[$index].attribute.inputValue"
+                                    <select class="form-control"
+                                            data-ng-model="section.sectionAttributes[$index].attribute.inputValue"
                                             required>
                                         <option ng-repeat="option in section.sectionAttributes[$index].attribute.attributeValues"
                                                 value="{{option.value}}">{{option.value}}
@@ -120,9 +127,13 @@
                                 </td>
 
 
-
-                                <td style="background-color: darkgrey;font-weight:bold;">
+                                <td class="attrname">
                                     {{section.sectionAttributes[$index+1].attribute.name}}
+                                    <a ng-if="section.sectionAttributes[$index+1].attribute.description" href="#"
+                                       data-toggle="tooltip"
+                                       title="{{section.sectionAttributes[$index+1].attribute.description}}">
+                                        <span class="glyphicon glyphicon-info-sign"></span>
+                                    </a>
                                 </td>
                                 <td ng-if="section.sectionAttributes[$index+1].attribute.type=='text'">
                                     <input class="form-control" type="text" required
@@ -131,7 +142,8 @@
                                            placeholder="Please Enter {{section.sectionAttributes[$index+1].attribute.name}} value"/>
                                 </td>
                                 <td ng-if="section.sectionAttributes[$index+1].attribute.type=='dropdown'">
-                                    <select class="form-control" data-ng-model="section.sectionAttributes[$index+1].attribute.inputValue"
+                                    <select class="form-control"
+                                            data-ng-model="section.sectionAttributes[$index+1].attribute.inputValue"
                                             required>
                                         <option ng-repeat="option in section.sectionAttributes[$index+1].attribute.attributeValues"
                                                 value="{{option.value}}">{{option.value}}
@@ -140,20 +152,91 @@
                                 </td>
 
 
-
                             </tr>
                             </tbody>
                         </table>
                     </td>
                 </tr>
                 </tbody>
-
-
             </table>
+
+
+            <table class="resultform" width="100%"
+                   ng-repeat="section in NICLCtrl.templateVO.sections | orderBy:'section_order'"
+                   ng-if="section.static">
+                <!--section for Schedule -->
+                <tbody ng-if="section.name=='Schedule'">
+                <tr class="title">
+                    <th><h1 class="panel-title">{{section.name}}</h1></th>
+                </tr>
+                <tr>
+                    <td>
+                        <table width="100%">
+                            <tbody ng-repeat="sectionAttribute in section.sectionAttributes | orderBy:'order'">
+
+                            <tr>
+                                <td class="attrname">{{sectionAttribute.attribute.name}}</td>
+
+                                <td>
+                                    <input class="form-control" type="text" required
+
+                                           data-ng-model="sectionAttribute.attribute.inputValue"
+                                           placeholder="Please Enter {{sectionAttribute.attribute.name}} value"/>
+                                </td>
+                                <td></td>
+
+                                <td>
+
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+
+                </tbody>
+                <!--section for Schedule end-->
+                <!--section for Finance contact end-->
+                <tbody ng-if="section.name=='Finance Contact'">
+                    <tr class="title">
+                        <th><h1 class="panel-title">{{section.name}}</h1></th>
+                    </tr>
+                <tr>
+                    <td>
+                        <table width="100%">
+                            <tbody ng-repeat="sectionAttribute in section.sectionAttributes | orderBy:'order'">
+
+                            <tr>
+                                <td class="attrname">{{sectionAttribute.attribute.name}}</td>
+
+                                <td>
+                                    <input class="form-control" type="text" required
+                                           id="{{sectionAttribute.attribute.name}}"
+                                           data-ng-model="sectionAttribute.attribute.inputValue"
+                                           placeholder="Please Enter {{sectionAttribute.attribute.name}} value"/>
+                                </td>
+                                <td></td>
+
+                                <td>
+
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+
+                </tbody>
+            </table>
+
+
             <button type="submit" class="btn btn-primary" ng-click="NICLCtrl.showReviewForm()">Confirm</button>
             <button type="reset" value="Reset" ng-click="NICLCtrl.resetForm()" class="btn btn-default">Reset</button>
             <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#goBackModal">Go Back
             </button>
+            <pre>{{NICLCtrl.staticAttributeVO|json}}</pre>
+            <br>
+
             <pre>{{NICLCtrl.templateVO|json}}</pre>
 
         </div>
@@ -169,26 +252,26 @@
                 </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>
-                            <table class="table resultform" style="margin-top: 15px; width:100%">
-                                <tbody ng-repeat="sectionAttribute in section.sectionAttributes | orderBy:'order'">
-                                <tr ng-if="$even">
-                                        <td style="background-color: darkgrey;font-weight:bold;">
-                                        {{section.sectionAttributes[$index].attribute.name}}
-                                        </td>
-                                        <td>{{section.sectionAttributes[$index].attribute.inputValue}}</td>
+                <tr>
+                    <td>
+                        <table class="table resultform" style="margin-top: 15px; width:100%">
+                            <tbody ng-repeat="sectionAttribute in section.sectionAttributes | orderBy:'order'">
+                            <tr ng-if="$even">
+                                <td style="background-color: darkgrey;font-weight:bold;">
+                                    {{section.sectionAttributes[$index].attribute.name}}
+                                </td>
+                                <td>{{section.sectionAttributes[$index].attribute.inputValue}}</td>
 
-                                    <td style="background-color: darkgrey;font-weight:bold;">
-                                        {{section.sectionAttributes[$index+1].attribute.name}}
-                                    </td>
-                                    <td>{{section.sectionAttributes[$index+1].attribute.inputValue}}</td>
+                                <td style="background-color: darkgrey;font-weight:bold;">
+                                    {{section.sectionAttributes[$index+1].attribute.name}}
+                                </td>
+                                <td>{{section.sectionAttributes[$index+1].attribute.inputValue}}</td>
 
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </td>
-                    </tr>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
                 </tbody>
             </table>
 
@@ -199,6 +282,7 @@
 
     </div>
 </div>
+
 
 <div class="modal fade" id="confirmModal" role="dialog">
     <div class="modal-dialog">

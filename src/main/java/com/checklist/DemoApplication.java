@@ -3,6 +3,7 @@ package com.checklist;
 import com.checklist.model.*;
 import com.checklist.repository.*;
 import com.checklist.service.AttributeValueService.AttributeValueService;
+import com.checklist.service.SectionAttributeService.SectionAttributeService;
 import com.checklist.service.SectionService.SectionService;
 import com.checklist.service.TemplateService.TemplateService;
 import org.slf4j.Logger;
@@ -14,10 +15,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import javax.naming.directory.AttributeInUseException;
 import javax.transaction.Transactional;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Set;
+import java.util.*;
 
 @SpringBootApplication
 public class DemoApplication implements CommandLineRunner{
@@ -43,7 +41,8 @@ public class DemoApplication implements CommandLineRunner{
     private SectionService sectionService;
     @Autowired
     private TemplateService templateService;
-
+    @Autowired
+    private SectionAttributeService sectionAttributeService;
     @Transactional
     @Override
     public void run(String... strings) throws Exception {
@@ -53,87 +52,87 @@ public class DemoApplication implements CommandLineRunner{
         groupRepository.save(g1);
         groupRepository.save(g2);
 
-        Attribute a1 = new Attribute("Reporting Name","text");
-        Attribute a2 = new Attribute("Issuer Name","text");
+        Attribute a11 = new Attribute("Reporting Name","text");
+        Attribute a12 = new Attribute("Issuer Name","text");
         /*For (GICS) Sector*/
-        Attribute a3 = new Attribute("(GICS)Sector","dropdown","PI Definition:The main industry of the investment as defined by the Global Industry Classification Standard (GICS).");
-        Set a3options=new HashSet<AttributeValue>(){{
-            add(new AttributeValue("Materials",a3));
-            add(new AttributeValue("Energy",a3));
-            add(new AttributeValue("Utility",a3));
-            add(new AttributeValue("Industrials",a3));
-            add(new AttributeValue("Financials",a3));
-            add(new AttributeValue("Health Care",a3));
-            add(new AttributeValue("Telecommunication Services",a3));
+        Attribute a13 = new Attribute("(GICS)Sector","dropdown","PI Definition:The main industry of the investment as defined by the Global Industry Classification Standard (GICS).");
+        Set a13options=new HashSet<AttributeValue>(){{
+            add(new AttributeValue("Materials",a13));
+            add(new AttributeValue("Energy",a13));
+            add(new AttributeValue("Utility",a13));
+            add(new AttributeValue("Industrials",a13));
+            add(new AttributeValue("Financials",a13));
+            add(new AttributeValue("Health Care",a13));
+            add(new AttributeValue("Telecommunication Services",a13));
         }};
 
-        attributeValueService.saveAttributeValueSet(a3options);
+        attributeValueService.saveAttributeValueSet(a13options);
 
         /*For Level of Approval*/
-        Attribute a4 = new Attribute("Level of Approval","dropdown");
-        Set  a4options= new HashSet<AttributeValue>(){{
-            add( new AttributeValue("IC", a4));
-            add(new AttributeValue("PICI,CIC", a4));
-            add(new AttributeValue("PICI", a4));
-            add(new AttributeValue("SMD", a4));
+        Attribute a14 = new Attribute("Level of Approval","dropdown");
+        Set  a14options= new HashSet<AttributeValue>(){{
+            add( new AttributeValue("IC", a14));
+            add(new AttributeValue("PICI,CIC", a14));
+            add(new AttributeValue("PICI", a14));
+            add(new AttributeValue("SMD", a14));
 
         }};
-        attributeValueService.saveAttributeValueSet(a4options);
+        attributeValueService.saveAttributeValueSet(a14options);
 
 
-        Attribute a5 = new Attribute("Project Name of Investment","text");
-        Attribute a6 = new Attribute("Approved Amount","text");
+        Attribute a15 = new Attribute("Project Name of Investment","text");
+        Attribute a16 = new Attribute("Approved Amount","text");
         /*For Legal Entity*/
-        Attribute a7 = new Attribute("CPPIB Investing Entity(Legal entity)","dropdown");
-        Set a7options= new HashSet<AttributeValue>(){{
-            add(new AttributeValue("CPPIB", a7));
-            add(new AttributeValue("CPPIB(Hong Kong) Limited", a7));
-            add(new AttributeValue("CII Luxco", a7));
-            add(new AttributeValue("CII US Holdings(1)", a7));
+        Attribute a17 = new Attribute("CPPIB Investing Entity(Legal entity)","dropdown");
+        Set a17options= new HashSet<AttributeValue>(){{
+            add(new AttributeValue("CPPIB", a17));
+            add(new AttributeValue("CPPIB(Hong Kong) Limited", a17));
+            add(new AttributeValue("CII Luxco", a17));
+            add(new AttributeValue("CII US Holdings(1)", a17));
 
         }};
-        attributeValueService.saveAttributeValueSet(a7options);
+        attributeValueService.saveAttributeValueSet(a17options);
         /*For Investment Type*/
-        Attribute a8 = new Attribute("Investment/Asset Type","dropdown");
-        Set a8options= new HashSet<AttributeValue>(){{
-            add(new AttributeValue("Leveraged Loans", a8));
-            add(new AttributeValue("High Yield Bonds", a8));
-            add(new AttributeValue("Mezzanie Debt", a8));
-            add(new AttributeValue("Equity)", a8));
+        Attribute a18 = new Attribute("Investment/Asset Type","dropdown");
+        Set a18options= new HashSet<AttributeValue>(){{
+            add(new AttributeValue("Leveraged Loans", a18));
+            add(new AttributeValue("High Yield Bonds", a18));
+            add(new AttributeValue("Mezzanie Debt", a18));
+            add(new AttributeValue("Equity)", a18));
 
         }};
-        attributeValueService.saveAttributeValueSet(a8options);
+        attributeValueService.saveAttributeValueSet(a18options);
         /*For Investment Type*/
-        Attribute a9 = new Attribute("Deal Currency","dropdown","The currency used for funding and expected for all distributions. Please advise PIBM and IFPI if these currencies are not aligned");
-        Set a9options= new HashSet<AttributeValue>(){{
-            add(new AttributeValue("CAD", a9));
-            add(new AttributeValue("AUD", a9));
-            add(new AttributeValue("CNY", a9));
-            add(new AttributeValue("USD)", a9));
+        Attribute a19 = new Attribute("Deal Currency","dropdown","The currency used for funding and expected for all distributions. Please advise PIBM and IFPI if these currencies are not aligned");
+        Set a19options= new HashSet<AttributeValue>(){{
+            add(new AttributeValue("CAD", a19));
+            add(new AttributeValue("AUD", a19));
+            add(new AttributeValue("CNY", a19));
+            add(new AttributeValue("USD)", a19));
         }};
-        attributeValueService.saveAttributeValueSet(a9options);
+        attributeValueService.saveAttributeValueSet(a19options);
 
         /*For Country of Exposure Type*/
-        Attribute a10 = new Attribute("Country of Exposure","dropdown","Currency which has the greatest impact on the value of the investment.");
-        Set a10options= new HashSet<AttributeValue>(){{
-            add(new AttributeValue("Austria", a10));
-            add(new AttributeValue("Canada", a10));
-            add(new AttributeValue("Egypt", a10));
-            add(new AttributeValue("Hong Kong)", a10));
+        Attribute a20 = new Attribute("Country of Exposure","dropdown","Currency which has the greatest impact on the value of the investment.");
+        Set a20options= new HashSet<AttributeValue>(){{
+            add(new AttributeValue("Austria", a20));
+            add(new AttributeValue("Canada", a20));
+            add(new AttributeValue("Egypt", a20));
+            add(new AttributeValue("Hong Kong)", a20));
         }};
-        attributeValueService.saveAttributeValueSet(a10options);
+        attributeValueService.saveAttributeValueSet(a20options);
 
-        /*for static attributes*/
-        Attribute a11 = new Attribute("Prepayment Schedule", "text", true);
-        Attribute a12 = new Attribute("Call Schedule", "text", true);
-        Attribute a13 = new Attribute("Agent Name", "text", true);
-        Attribute a14 = new Attribute("Contact Name", "text", true);
-        Attribute a15 = new Attribute("Telephone", "text", true);
-        Attribute a16 = new Attribute("Email", "text", true);
-        Attribute a17 = new Attribute("Prepared name", "text", true);
-        Attribute a18 = new Attribute("Prepared date", "text", true);
-        Attribute a19 = new Attribute("Reviewed name", "text", true);
-        Attribute a20 = new Attribute("Reviewed date", "text", true);
+        /*for static attributes reserved*/
+        Attribute a1 = new Attribute("Prepayment Schedule", "text", true);
+        Attribute a2 = new Attribute("Call Schedule", "text", true);
+        Attribute a3 = new Attribute("Agent Name", "text", true);
+        Attribute a4 = new Attribute("Contact Name", "text", true);
+        Attribute a5 = new Attribute("Telephone", "text", true);
+        Attribute a6 = new Attribute("Email", "text", true);
+        Attribute a7 = new Attribute("Prepared name", "text", true);
+        Attribute a8 = new Attribute("Prepared date", "text", true);
+        Attribute a9 = new Attribute("Reviewed name", "text", true);
+        Attribute a10 = new Attribute("Reviewed date", "text", true);
         /*--------------------*/
 
         attributeRepository.save(a1);
@@ -174,17 +173,37 @@ public class DemoApplication implements CommandLineRunner{
         templateRepository.save(t1);
         t1.setSections(sectionSet);
 
-        SectionAttribute sectionAttribute1 = new SectionAttribute(t1,s1,a1,1);
-        SectionAttribute sectionAttribute2 = new SectionAttribute(t1,s1,a2,2);
-        SectionAttribute sectionAttribute3 = new SectionAttribute(t1,s1,a3,3);
-        SectionAttribute sectionAttribute4 = new SectionAttribute(t1,s2,a4,6);
-        SectionAttribute sectionAttribute5 = new SectionAttribute(t1,s2,a5,5);
+        SectionAttribute sectionAttribute1 = new SectionAttribute(t1,s1,a11,1);
+        SectionAttribute sectionAttribute2 = new SectionAttribute(t1,s1,a12,2);
+        SectionAttribute sectionAttribute3 = new SectionAttribute(t1,s1,a13,3);
+        SectionAttribute sectionAttribute4 = new SectionAttribute(t1,s2,a14,6);
+        SectionAttribute sectionAttribute5 = new SectionAttribute(t1,s2,a15,5);
         s1.getSectionAttributes().add(sectionAttribute1);
         s1.getSectionAttributes().add(sectionAttribute2);
         s1.getSectionAttributes().add(sectionAttribute3);
         s2.getSectionAttributes().add(sectionAttribute4);
         s2.getSectionAttributes().add(sectionAttribute5);
 
+        Section finance_contact= new Section("Finance Contact", 101,t1,true);
+        sectionRepository.save(finance_contact);
+        t1.getSections().add(finance_contact);
+
+        List<Attribute> financeContactAttrs = new ArrayList<Attribute>(){{
+                add(a3);
+                add(a4);
+                add(a5);
+                add(a6);
+        }};
+        sectionAttributeService.saveStaticSectionAttribute(finance_contact,t1,financeContactAttrs);
+        /*static schedule section */
+        Section schedule= new Section("Schedule", 100,t1,true);
+        sectionRepository.save(schedule);
+        t1.getSections().add(schedule);
+        List<Attribute> scheduleAttrs = new ArrayList<Attribute>(){{
+                add(a1);
+                add(a2);
+        }};
+        sectionAttributeService.saveStaticSectionAttribute(schedule,t1,scheduleAttrs);
 
 
 /*
