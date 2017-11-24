@@ -133,7 +133,8 @@
             console.log("template id:" + self.selectedTemplateID);
             NICLService.getTemplateByID(self.selectedTemplateID).then(function (response) {
                 self.selectedTemplate = response.data;
-                sortTemplateSectionAttributes(self.selectedTemplate);
+                //sortTemplateSectionAttributes(self.selectedTemplate);
+                NICLService.sortTemplateSectionAttributes(self.selectedTemplate);
                 console.log('templates get!');
                 console.log('template content: ' + JSON.stringify(self.selectedTemplate));
             }, function (errResponse) {
@@ -209,9 +210,7 @@
             );
         }
         function sortTemplateSectionAttributes(templateData){
-            templateData.sections.forEach(function (section) {
-                section.sectionAttributes.sort(function(sa1,sa2){return sa1.order - sa2.order});
-            })
+            NICLService.sortTemplateSectionAttributes(templateData);
         }
 
         function getTemplateVOSorted() {

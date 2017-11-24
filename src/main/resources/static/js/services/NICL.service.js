@@ -26,12 +26,12 @@
             createNICLHead: createNICLHead,
             createNICLContent:createNICLContent,
             createNICLContentSet:createNICLContentSet,
-            changeView:changeView,
             getNICLHeadByGroupID:getNICLHeadByGroupID,
             getNICLContentByHeadID:getNICLContentByHeadID,
             getNICLContentWithoutValueByHeadID:getNICLContentWithoutValueByHeadID,
             deleteNICLHeadByID:deleteNICLHeadByID,
-
+            sortTemplateSectionAttributes:sortTemplateSectionAttributes,
+            getTemplateByHID:getTemplateByHID,
         };
 
         return services;
@@ -48,6 +48,13 @@
             return $http.post(url, NICLHead, config);
         }
 
+        function getTemplateByHID(hid){
+            console.log('get template with hid:' + hid);
+            var url = urlBase + '/gettemplatebyhid/' + hid;
+            return $http.get(url);
+
+        }
+
         function createNICLContent(NICLContent){
             console.log('create NICLContent');
             var url = urlBase + '/createniclcontent';
@@ -58,6 +65,12 @@
             };
             return $http.post(url, NICLContent, config);
 
+        }
+
+        function sortTemplateSectionAttributes(templateData){
+            templateData.sections.forEach(function (section) {
+                section.sectionAttributes.sort(function(sa1,sa2){return sa1.order - sa2.order});
+            })
         }
 
         function createNICLContentSet(NICLContentSet){
@@ -115,6 +128,7 @@
             return $http.get(url);
 
         }
+
         function getNICLContentByHeadID(hid){
             console.log('get NICLContent with hid: ' + hid);
             var url = urlBase + '/getniclcontentbyhid/' + hid;
@@ -139,9 +153,6 @@
             return $http.get(url);
         }
 
-        function changeView(url){
-            $location.url(url);
-        }
 
     }
 

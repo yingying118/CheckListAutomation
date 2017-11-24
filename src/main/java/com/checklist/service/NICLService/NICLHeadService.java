@@ -1,6 +1,7 @@
 package com.checklist.service.NICLService;
 
 import com.checklist.model.NICLHead;
+import com.checklist.model.Template;
 
 import java.util.List;
 import java.util.Set;
@@ -15,6 +16,7 @@ public interface NICLHeadService {
     NICLHead findNICLHeadByName(String name);
     void deleteNICLHeadByID(Long id);
     Set<NICLHead> findAllNICLHeadsByGroupID(long gid);
+    Template findTemplateByHID(Long hid);
 
 
 }

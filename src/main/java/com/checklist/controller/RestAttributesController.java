@@ -30,7 +30,6 @@ public class RestAttributesController {
     public List<Attribute> getNonStaticAttributes()  {
         return attributeService.findAllNonStaticAttributes();
     }
-
     @RequestMapping(value="/getstaticattributes", method = RequestMethod.GET)
     public List<Attribute> getStaticAttributes()  {
         return attributeService.findAllStaticAttibutes();

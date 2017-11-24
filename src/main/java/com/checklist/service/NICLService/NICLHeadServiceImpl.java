@@ -76,4 +76,9 @@ public class NICLHeadServiceImpl implements NICLHeadService {
 
         return null;
     }
+
+    @Override
+    public Template findTemplateByHID(Long hid) {
+        return headRepository.findOne(hid).getTemplate();
+    }
 }

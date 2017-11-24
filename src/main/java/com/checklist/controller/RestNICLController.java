@@ -73,11 +73,15 @@ public class RestNICLController {
     public Template getTemplateByID(@PathVariable("tid") Long id){
         return templateService.findTemplateByID(id);
     }
-
+    @RequestMapping(value="/gettemplatebyhid/{hid}", method=RequestMethod.GET)
+    public Template getTemplateByHID(@PathVariable("hid") Long hid){
+        return niclHeadService.findTemplateByHID(hid);
+    }
     @RequestMapping(value="/gettemplatename/{tid}", method=RequestMethod.GET)
     public String getTemplateName(@PathVariable("tid") Long id){
         return templateService.findTemplateByID(id).getName();
     }
+
     @RequestMapping(value="/getniclcontentwithoutvaluebyhid/{hid}", method=RequestMethod.GET)
     public Set<NICLContent> getNICLContentSetWithoutValueByHeadID(@PathVariable("hid") Long id){
 

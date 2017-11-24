@@ -11,9 +11,9 @@
         .module('checklistAutomationApp')
         .controller('NICLListController', NICLListController);
 
-    NICLListController.$inject = ['NICLService'];
+    NICLListController.$inject = ['NICLService','shareService'];
 
-    function NICLListController(NICLService) {
+    function NICLListController(NICLService, shareService) {
 
             var self = this;
             self.groups=[];
@@ -28,6 +28,7 @@
          */
             this.getNICLHeadByGroupID = getNICLHeadByGroupID;
             this.getNICLContentByHead=getNICLContentByHead;
+            this.passNICLHID=passNICLHID;
         /**
          * Public functions implementation
          */
@@ -53,6 +54,10 @@
                     console.error('Error while get all groups : ' + errResponse.toString());
                 }
             )
+        }
+
+        function passNICLHID(hid){
+            shareService.setSelectedHID(hid);
         }
 
         /**

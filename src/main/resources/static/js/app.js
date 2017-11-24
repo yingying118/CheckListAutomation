@@ -31,9 +31,9 @@ app.config(function($locationProvider, $routeProvider) {
         templateUrl:"./js/NICL/NICLList.html",
         controller:'NICLListController as NICLListCtrl'
     }).
-    when('/resultForm',{
-        templateUrl:"./js/resultForm/resultForm.html",
-        controller:'resultFormController as resultFormCtrl'
+    when('/reviewForm',{
+        templateUrl:"./js/NICL/NICLReviewForm/NICLReviewForm.html",
+        controller:'NICLReviewFormController as reviewFormCtrl'
     })
         .otherwise({redirectTo: '/'});
 

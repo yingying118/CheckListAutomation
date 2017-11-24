@@ -1,10 +1,101 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<div class="container">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">Mockup Page For NICL</h3>
 
-</body>
-</html>
+        </div>
+        <div class="panel-body">
+
+            <table class="resultform"
+                   ng-repeat="section in reviewFormCtrl.templateVO.sections | orderBy:'section_order'"
+                   ng-if="!section.static" width="100%">
+                <tbody>
+                <tr class="title">
+                    <th><h1 class="panel-title">{{section.name}}</h1></th>
+                </tr>
+                <tr>
+                    <td>
+                        <table width="100%">
+                            <tbody ng-repeat="sectionAttribute in section.sectionAttributes | orderBy:'order'">
+                            <tr ng-if="$even">
+                                <td class="attrname">
+                                    {{section.sectionAttributes[$index].attribute.name}}
+
+                                </td>
+                                <td>{{section.sectionAttributes[$index].attribute.inputValue}}
+                                </td>
+
+                                <td class="attrname">
+                                    {{section.sectionAttributes[$index+1].attribute.name}}
+                                </td>
+                                <td>{{section.sectionAttributes[$index+1].attribute.inputValue}}
+                                </td>
+
+                            </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+
+            <table class="resultform" width="100%"
+                   ng-repeat="section in reviewFormCtrl.templateVO.sections | orderBy:'section_order'"
+                   ng-if="section.static">
+                <!--section for Schedule -->
+                <tbody ng-if="section.name=='Schedule'">
+                <tr class="title">
+                    <th><h1 class="panel-title">{{section.name}}</h1></th>
+                </tr>
+                <tr>
+                    <td>
+                        <table width="100%">
+                            <tbody ng-repeat="sectionAttribute in section.sectionAttributes | orderBy:'order'">
+
+                            <tr>
+                                <td class="attrname">{{sectionAttribute.attribute.name}}</td>
+
+                                <td>{{sectionAttribute.attribute.inputValue}}
+                                </td>
+                                <td></td> <td></td>
+
+                            </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+
+                </tbody>
+                <!--section for Schedule end-->
+                <!--section for Finance contact end-->
+                <tbody ng-if="section.name=='Finance Contact'">
+                <tr class="title">
+                    <th><h1 class="panel-title">{{section.name}}</h1></th>
+                </tr>
+                <tr>
+                    <td>
+                        <table width="100%">
+                            <tbody ng-repeat="sectionAttribute in section.sectionAttributes | orderBy:'order'">
+
+                            <tr>
+                                <td class="attrname">{{sectionAttribute.attribute.name}}</td>
+
+                                <td>{{sectionAttribute.attribute.inputValue}}
+                                </td>
+                                <td></td>
+
+                                <td>
+
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

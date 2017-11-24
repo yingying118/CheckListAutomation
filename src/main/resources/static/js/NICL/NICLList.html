@@ -50,7 +50,7 @@
                             <tr ng-repeat="NICLHead in NICLListCtrl.NICLHeadList | orderBy:'id'">
                                 <td>{{NICLHead.id}}</td>
                                 <td>
-                                    <a href="#" ng-click="NICLListCtrl.getNICLContentByHead(NICLHead)">{{NICLHead.name}}</a>
+                                    <a href="reviewForm" ng-click="NICLListCtrl.passNICLHID(NICLHead.id)">{{NICLHead.name}}</a>
                                 </td>
                                 <td>{{NICLHead.template.name}}</td>
                                 <td>{{NICLHead.owner}}</td>
@@ -109,3 +109,7 @@
 
     </div>
 </div>
+
+
+<a href="reviewForm" >go to review page</a>
+
