@@ -206,6 +206,22 @@ public class DemoApplication implements CommandLineRunner{
         sectionAttributeService.saveStaticSectionAttribute(schedule,t1,scheduleAttrs);
 
 
+        Section audit= new Section("Audit", 102,t1,true);
+        sectionRepository.save(audit);
+        t1.getSections().add(audit);
+
+        List<Attribute> auditAttr = new ArrayList<Attribute>(){{
+
+                add(a7);
+
+                add(a9);
+                add(a8);
+                add(a10);
+
+
+        }};
+        sectionAttributeService.saveStaticSectionAttribute(audit, t1, auditAttr);
+
 /*
         Template t3 = new Template("Template T3", g1);
         Section s3=new Section("Overview", 1,t3 );

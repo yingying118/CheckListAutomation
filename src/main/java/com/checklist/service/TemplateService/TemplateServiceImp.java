@@ -101,6 +101,25 @@ public class TemplateServiceImp implements TemplateService {
             }};
             sectionAttributeService.saveStaticSectionAttribute(finance_contact,temp,financeContactAttrs);
 
+
+            //save static audit section here:
+            Section audit= new Section("Audit", 102,temp,true);
+            sectionRepository.save(audit);
+            temp.getSections().add(audit);
+
+            List<Attribute> auditAttr = new ArrayList<Attribute>(){{
+                try{
+                    add(attributeService.findStaticAttrByName("Prepared name"));
+                    add(attributeService.findStaticAttrByName("Reviewed name"));
+                    add(attributeService.findStaticAttrByName("Prepared date"));
+                    add(attributeService.findStaticAttrByName("Reviewed date"));
+
+                }catch (Exception e){
+                    throw e;
+                }
+            }};
+            sectionAttributeService.saveStaticSectionAttribute(audit, temp, auditAttr);
+
         }
         return temp;
 

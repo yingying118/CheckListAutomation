@@ -11,11 +11,11 @@
                    ng-if="!section.static" width="100%">
                 <tbody>
                 <tr class="title">
-                    <th><h1 class="panel-title">{{section.name}}</h1></th>
+                    <th><h1 class="panel-title">{{section.name|uppercase}}</h1></th>
                 </tr>
                 <tr>
                     <td>
-                        <table width="100%">
+                        <table class="innertable" width="100%">
                             <tbody ng-repeat="sectionAttribute in section.sectionAttributes | orderBy:'order'">
                             <tr ng-if="$even">
                                 <td class="attrname">
@@ -24,6 +24,8 @@
                                 </td>
                                 <td>{{section.sectionAttributes[$index].attribute.inputValue}}
                                 </td>
+
+
 
                                 <td class="attrname">
                                     {{section.sectionAttributes[$index+1].attribute.name}}
@@ -46,20 +48,27 @@
                 <!--section for Schedule -->
                 <tbody ng-if="section.name=='Schedule'">
                 <tr class="title">
-                    <th><h1 class="panel-title">{{section.name}}</h1></th>
+                    <th><h1 class="panel-title">SCHEDULE</h1></th>
                 </tr>
                 <tr>
                     <td>
-                        <table width="100%">
+                        <table class="innertable" width="100%">
+
                             <tbody ng-repeat="sectionAttribute in section.sectionAttributes | orderBy:'order'">
 
-                            <tr>
-                                <td class="attrname">{{sectionAttribute.attribute.name}}</td>
+                            <tr ng-if="$even">
+                                <td style="text-align: center" colspan="2">{{section.sectionAttributes[$index].attribute.name}}</td>
 
-                                <td>{{sectionAttribute.attribute.inputValue}}
+                                <td style="text-align: center" colspan="2">{{section.sectionAttributes[$index+1].attribute.name}}</td>
+
+                            </tr>
+                            <tr ng-if="$even">
+                                <td class="attrname">Date</td>
+                                <td>{{section.sectionAttributes[$index].attribute.inputValue}}
                                 </td>
-                                <td></td> <td></td>
-
+                                <td class="attrname">Date</td>
+                                <td>{{section.sectionAttributes[$index+1].attribute.inputValue}}
+                                </td>
                             </tr>
                             </tbody>
                         </table>
@@ -70,25 +79,66 @@
                 <!--section for Schedule end-->
                 <!--section for Finance contact end-->
                 <tbody ng-if="section.name=='Finance Contact'">
+
                 <tr class="title">
-                    <th><h1 class="panel-title">{{section.name}}</h1></th>
+                    <th><h1 class="panel-title">FINANCE CONTACT(LOAN/ ADMIN AGENT)</h1></th>
                 </tr>
                 <tr>
                     <td>
-                        <table width="100%">
-                            <tbody ng-repeat="sectionAttribute in section.sectionAttributes | orderBy:'order'">
+                        <table class="innertable" width="100%">
+                            <tbody >
+                            <tr><td></td><td></td><td></td><td></td></tr>
 
-                            <tr>
+                            <tr ng-repeat="sectionAttribute in section.sectionAttributes | orderBy:'order'">
                                 <td class="attrname">{{sectionAttribute.attribute.name}}</td>
-
-                                <td>{{sectionAttribute.attribute.inputValue}}
+                                <td colspan="3">{{sectionAttribute.attribute.inputValue}}
                                 </td>
-                                <td></td>
 
-                                <td>
-
-                                </td>
                             </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+                <tr class="title">
+                    <th><h1 class="panel-title">COMMNETS</h1></th>
+                </tr>
+                <tr>
+                    <td colspan="4">
+                        <p>
+                            Please attach investment recommendation, wire instructions, appropriate internal approvals, singed purchase,
+                            legal agreements, and flowchart showing the structure of the investment. Please attach a term sheet which includes, a summary
+                            of debt structure of the investment, the structure of hte investing group (partnership or direct interest), the number of
+                            certificates expected & where they will be held.
+                        </p>
+                    </td>
+                </tr>
+                </tbody>
+
+                <tbody ng-if="section.name=='Audit'">
+                <tr class="title">
+                    <td style="text-align: center">
+                        PREPARED BY:
+                    </td>
+                    <td style="text-align: center">
+                        REVIEWED BY:
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <table width="100%">
+
+                            <tbody class="innertable" ng-repeat="sectionAttribute in section.sectionAttributes | orderBy:'order'">
+
+
+                            <tr ng-if="$even">
+                                <td class="attrname" colspan="2">{{section.sectionAttributes[$index].attribute.name}}</td>
+
+                                <td>{{section.sectionAttributes[$index].attribute.inputValue}}</td>
+
+                                <td class="attrname" colspan="2">{{section.sectionAttributes[$index+1].attribute.name}}</td>
+                                <td>{{section.sectionAttributes[$index+1].attribute.inputValue}}</td>
+                            </tr>
+
                             </tbody>
                         </table>
                     </td>

@@ -5953,12 +5953,18 @@ dd {
   margin: 0 0 0 110px;
   padding: 0 0 0.5em 0; }
 
+.resultform
+{
+  border: 1px solid black;
 
+}
 .resultform th{
   text-align: center;
+
 }
 .resultform td{
   width: 25%;
+
 }
 .resultform .attrname{
   background-color: darkgray;
@@ -5980,4 +5986,12 @@ dd {
   font-weight:bold;
   padding-top:10px;
   padding-bottom:10px;
+
 }
+.resultform .innertable td{
+  padding-left:5px; !important;
+  padding-right: 5px; !important;
+  border: 0.4px solid black;
+
+}
+
