@@ -14,7 +14,6 @@
         self.group={};
         self.selectedGroup=null;
         self.newTemplate = {};
-        //self.newAttributeSelection = null;
         self.newSections=[];
 
 
@@ -82,9 +81,11 @@
                 toSave.section_order=obj.order;
                 toSave.name= obj.name;
                 toSave.sectionAttributes=[];
+                var count=0;
                 obj.selectAttribute.selectedItems.forEach(function(attrObj){
                     var temp_sectionAttribute={};
                     temp_sectionAttribute.attribute=attrObj;
+                    temp_sectionAttribute.order=count++;
                     toSave.sectionAttributes.push(temp_sectionAttribute)
                 });
                 self.newTemplate.sections.push(toSave);

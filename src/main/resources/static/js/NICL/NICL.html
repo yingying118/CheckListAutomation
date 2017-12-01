@@ -212,12 +212,11 @@
                 <tr>
                     <td>
                         <table width="100%">
-                            <tbody >
-                            <tr><td></td><td></td><td></td><td></td></tr>
+                            <tbody ng-repeat="sectionAttribute in section.sectionAttributes | orderBy:'order'">
 
-                            <tr ng-repeat="sectionAttribute in section.sectionAttributes | orderBy:'order'">
+                            <tr >
                                 <td class="attrname">{{sectionAttribute.attribute.name}}</td>
-                                <td colspan="3">
+                                <td style="width:75%">
                                     <input class="form-control" type="text" required
                                            id="{{sectionAttribute.attribute.name}}"
                                            data-ng-model="sectionAttribute.attribute.inputValue"
@@ -233,7 +232,7 @@
                         <th><h1 class="panel-title">COMMNETS</h1></th>
                     </tr>
                     <tr>
-                        <td colspan="4">
+                        <td width="100%">
                             <p>
                                 Please attach investment recommendation, wire instructions, appropriate internal approvals, singed purchase,
                                  legal agreements, and flowchart showing the structure of the investment. Please attach a term sheet which includes, a summary

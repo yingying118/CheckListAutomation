@@ -6,6 +6,11 @@ import com.checklist.service.AttributeValueService.AttributeValueService;
 import com.checklist.service.SectionAttributeService.SectionAttributeService;
 import com.checklist.service.SectionService.SectionService;
 import com.checklist.service.TemplateService.TemplateService;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,18 +20,22 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import javax.naming.directory.AttributeInUseException;
 import javax.transaction.Transactional;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.*;
 
 @SpringBootApplication
 public class DemoApplication implements CommandLineRunner{
     private static final Logger logger = LoggerFactory.getLogger(DemoApplication.class);
+    private static final String FILE_NAME = "C:/Users/azhang/Documents/CheckListAutomation/src/main/resources/nicl_input.xlsx";
 
     public static void main(String[] args) {
         SpringApplication.run(DemoApplication.class, args);
     }
     @Autowired
     TemplateRepository templateRepository;
-
     @Autowired
     GroupRepository groupRepository;
     @Autowired
@@ -46,7 +55,6 @@ public class DemoApplication implements CommandLineRunner{
     @Transactional
     @Override
     public void run(String... strings) throws Exception {
-
         Group g1 = new Group("PCI");
         Group g2 = new Group("GroupA");
         groupRepository.save(g1);
@@ -108,9 +116,10 @@ public class DemoApplication implements CommandLineRunner{
             add(new AttributeValue("CAD", a19));
             add(new AttributeValue("AUD", a19));
             add(new AttributeValue("CNY", a19));
-            add(new AttributeValue("USD)", a19));
+            add(new AttributeValue("USD", a19));
         }};
-        attributeValueService.saveAttributeValueSet(a19options);
+        a19.setAttributeValues(a19options);
+        //attributeValueService.saveAttributeValueSet(a19options);
 
         /*For Country of Exposure Type*/
         Attribute a20 = new Attribute("Country of Exposure","dropdown","Currency which has the greatest impact on the value of the investment.");
@@ -118,9 +127,10 @@ public class DemoApplication implements CommandLineRunner{
             add(new AttributeValue("Austria", a20));
             add(new AttributeValue("Canada", a20));
             add(new AttributeValue("Egypt", a20));
-            add(new AttributeValue("Hong Kong)", a20));
+            add(new AttributeValue("Hong Kong", a20));
         }};
-        attributeValueService.saveAttributeValueSet(a20options);
+        a20.setAttributeValues(a20options);
+
 
         /*for static attributes reserved*/
         Attribute a1 = new Attribute("Prepayment Schedule", "text", true);
@@ -213,67 +223,13 @@ public class DemoApplication implements CommandLineRunner{
         List<Attribute> auditAttr = new ArrayList<Attribute>(){{
 
                 add(a7);
-
                 add(a9);
                 add(a8);
                 add(a10);
 
-
         }};
+
         sectionAttributeService.saveStaticSectionAttribute(audit, t1, auditAttr);
-
-/*
-        Template t3 = new Template("Template T3", g1);
-        Section s3=new Section("Overview", 1,t3 );
-        Section s4=new Section("Security", 2,t3);
-
-        Set<Section> sectionSetFort3=new HashSet<Section>(){{
-            add(s3);
-            add(s4);
-        }};
-
-        t3.setSections(sectionSetFort3);
-        templateService.saveTemplate(t3);
-
-        SectionAttribute sectionAttribute1 = new SectionAttribute(t3,s3,a1,1);
-        a1.getSectionAttributes().add(sectionAttribute1);
-        SectionAttribute sectionAttribute2 = new SectionAttribute(t3,s3,a2,2);
-        a2.getSectionAttributes().add(sectionAttribute2);
-        SectionAttribute sectionAttribute3 = new SectionAttribute(t3,s3,a3,3);
-        a3.getSectionAttributes().add(sectionAttribute3);
-        SectionAttribute sectionAttribute4 = new SectionAttribute(t3,s4,a4,6);
-        a4.getSectionAttributes().add(sectionAttribute4);
-        SectionAttribute sectionAttribute5 = new SectionAttribute(t3,s4,a5,5);
-        a5.getSectionAttributes().add(sectionAttribute5);*/
-
-
-
-
-
-
-/*
-       Set templateAs = new HashSet<Template>() {{
-            add(t1);
-        }};
-        Set templatePIC = new HashSet<Template>() {{
-            add(t2);
-        }};
-        a1.setTemplates(templatePIC);
-        a2.setTemplates(templatePIC);
-        a3.setTemplates(templateAs);
-        a4.setTemplates(templateAs);
-        a5.setTemplates(templateAs);
-        a6.setTemplates(templateAs);
-        a7.setTemplates(templateAs);
-        a8.setTemplates(templateAs);
-        a9.setTemplates(templateAs);
-        a10.setTemplates(templateAs);*/
-
-
-
-
-        //AttributeValue a2value1= new AttributeValue("cppib ", a2);
-
 
     }
 }

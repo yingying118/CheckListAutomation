@@ -19,8 +19,14 @@ public class RestAttributesController {
     @Autowired
     AttributeService attributeService;
     @RequestMapping(value="/createattribute", method = RequestMethod.POST)
-    public void createProject(@RequestBody Attribute attr){
-         attributeService.saveAttribute(attr);
+    public Attribute createAttribute(@RequestBody Attribute attr) throws Exception {
+        if(attr.getType().equalsIgnoreCase("dropdown")){
+            return attributeService.saveDropdownAttribute(attr);
+        }else if(attr.getType().equalsIgnoreCase("text")){
+            return attributeService.saveTextAttribute(attr);
+        }
+        else
+            throw new Exception("the attribute type can't be identified");
     }
     @RequestMapping(value="/getallattributes", method = RequestMethod.GET)
     public List<Attribute> getAllAttributes()  {

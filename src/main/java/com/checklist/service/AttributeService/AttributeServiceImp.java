@@ -1,13 +1,16 @@
 package com.checklist.service.AttributeService;
 
 import com.checklist.model.Attribute;
+import com.checklist.model.AttributeValue;
 import com.checklist.repository.AttributeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by azhang on 10/10/2017.
@@ -24,10 +27,27 @@ public class AttributeServiceImp implements AttributeService {
     }
 
     @Override
-    public void saveAttribute(Attribute attri) {
+    public Attribute saveTextAttribute(Attribute attri) {
         Attribute newAttr = new Attribute(attri.getName());
-        attributeRepository.save(newAttr);
+        newAttr.setDescription(attri.getDescription());
+        newAttr.setType("text");
+        return attributeRepository.save(newAttr);
     }
+    @Override
+    public Attribute saveDropdownAttribute(Attribute attri) {
+        Attribute newAttr = new Attribute(attri.getName());
+        newAttr.setDescription(attri.getDescription());
+        newAttr.setType("dropdown");
+        Set<AttributeValue> avs= new HashSet<AttributeValue>();
+        for(AttributeValue av: attri.getAttributeValues()){
+            if(!av.getValue().isEmpty()){
+                avs.add(new AttributeValue(av.getValue(),newAttr));
+            }
+        }
+        newAttr.setAttributeValues(avs);
+        return attributeRepository.save(newAttr);
+    }
+
 
     @Override
     public List<Attribute> findAllAttributes() {

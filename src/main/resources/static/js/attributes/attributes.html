@@ -16,6 +16,28 @@
                                 <input type="text" class="form-control" ng-model="attrCtrl.newAttribute.name" id="attributeName"
                                        placeholder="Enter Attribute Name" name="attributeName"/>
                             </div>
+                            <div class="form-group">
+                                <label>Attribute Description</label>
+                                <textarea class="form-control"  rows="3" ng-model="attrCtrl.newAttribute.description"
+                                          placeholder="Enter Attribute Description"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Type</label>
+                                <label class="radio-inline">
+                                    <input name="attributeType" id="attributeType1" ng-model="attrCtrl.newAttribute.type" type="radio" checked="" value="text"/>Text
+                                </label>
+                                <label class="radio-inline">
+                                    <input name="attributeType" id="attributeType2" ng-model="attrCtrl.newAttribute.type" type="radio" value="dropdown"/>Dropdown
+                                </label>
+
+                            </div>
+                            <div ng-if="attrCtrl.newAttribute.type=='dropdown'" class="form-group">
+                                <label>Dropdown Values (Please Separate By ';')</label>
+                                <textarea class="form-control"  rows="3"
+                                          placeholder="Enter Attribute Dropdown Values" ng-model="attrCtrl.dropdownValues"></textarea>
+                            </div>
+
+                            <pre>{{attrCtrl.newAttribute|json}}</pre>
 
                         </div>
 
@@ -53,7 +75,7 @@
                         <td ng-if="attr.type=='dropdown'">
                             <div class="form-group">
                                 <select class="form-control">
-                                    <option ng-repeat="value in attr.attributeValues">{{value.value}} </option>
+                                    <option ng-repeat="value in attr.attributeValues | orderBy: 'value'">{{value.value}} </option>
                                 </select>
                             </div>
 

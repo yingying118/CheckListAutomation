@@ -9,7 +9,9 @@ import java.util.List;
  */
 public interface AttributeService {
     Attribute findAttributeByID(Long id);
-    void saveAttribute(Attribute attri);
+    Attribute saveDropdownAttribute(Attribute dropdownAttribute);
+    Attribute saveTextAttribute(Attribute textAttribute);
+
     List<Attribute> findAllAttributes();
     boolean isAttributeExist(String name);
     List<Attribute> findAllStaticAttibutes();

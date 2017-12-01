@@ -236,7 +236,25 @@ th {
       background-color: #fff !important; }
   .table-bordered th,
   .table-bordered td {
-    border: 1px solid #ddd !important; } }
+    border: 1px solid #ddd !important; }
+
+    .resultform table, td
+    {
+        border: 1px solid black !important;
+    }
+    .resultform .title *th{
+        text-align: center !important;
+        background: black !important;
+        color:white !important;
+    }
+    .resultform .attrname{
+        background-color: darkgray;
+        font-weight:bold;
+        text-align: right;
+        padding-right: 6px;
+
+    }
+}
 
 @font-face {
   font-family: 'Glyphicons Halflings';
@@ -5956,15 +5974,14 @@ dd {
 .resultform
 {
   border: 1px solid black;
-
 }
 .resultform th{
   text-align: center;
-
+    background-color: black;
+    color:white;
 }
 .resultform td{
   width: 25%;
-
 }
 .resultform .attrname{
   background-color: darkgray;

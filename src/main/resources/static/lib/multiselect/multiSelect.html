@@ -21,7 +21,7 @@
             <button type="button" class="btn btn-warning btn-xs" ng-click="$ctrl.change($ctrl.options.selectedItems, $ctrl.options.items, -1)">Deselect All</button>
             <div class="pool">
                 <ul>
-                    <li ng-repeat="item in $ctrl.options.selectedItems | orderBy: $ctrl.options.orderProperty" ng-click="$ctrl.change($ctrl.options.selectedItems, $ctrl.options.items, $ctrl.options.selectedItems.indexOf(item))">
+                    <li ng-repeat="item in $ctrl.options.selectedItems" ng-click="$ctrl.change($ctrl.options.selectedItems, $ctrl.options.items, $ctrl.options.selectedItems.indexOf(item))">
                         <a href="">{{item[$ctrl.options.labelShow]}}</a>
                     </li>
                 </ul>

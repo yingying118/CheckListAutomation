@@ -16,16 +16,20 @@ public class AttributeValue {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String Value;
+    private String value;
     @ManyToOne
     @JoinColumn(name = "aid")
     private Attribute attribute;
 
 
     public AttributeValue(String value, Attribute attribute) {
-        Value = value;
+        this.value = value;
         this.attribute = attribute;
     }
+    public AttributeValue(String value) {
+        this.value = value;
+    }
+
     public AttributeValue(){
         super();
     }
@@ -38,11 +42,11 @@ public class AttributeValue {
     }
 
     public String getValue() {
-        return Value;
+        return value;
     }
 
     public void setValue(String value) {
-        Value = value;
+        this.value = value;
     }
 
     public Attribute getAttribute() {

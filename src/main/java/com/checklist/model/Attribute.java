@@ -22,7 +22,6 @@ public class Attribute{
     private boolean isStatic;
 
 
-
     @OneToMany(mappedBy = "attribute",cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     private Set<AttributeValue> attributeValues;
 

@@ -14,7 +14,10 @@
         var self = this;
         self.attributes = [];
         self.newAttribute = {};
+        self.newAttribute.attributeValues=[];
         self.selectedAttribute = null;
+        self.dropdownValues=null;
+
 
         getAllAttibutes();
 
@@ -28,7 +31,14 @@
 
 
         function createNewAttribute() {
-            console.log(self.newAttribute);
+            if(self.newAttribute.type=='dropdown' && self.dropdownValues!== null){
+                self.dropdownValues.split(';').forEach(function (element) {
+                    var attributeValue={};
+                    attributeValue.value = element;
+                    self.newAttribute.attributeValues.push(attributeValue);
+                });
+            }
+            console.log("object: " + JSON.stringify(self.newAttribute));
             attributesService.createAttribute(self.newAttribute).then(
                 function (response) {
                     resetNewAttribute();
@@ -41,7 +51,10 @@
         };
 
         function resetNewAttribute() {
+
             self.newAttribute = {};
+            self.newAttribute.attributeValues=[];
+            self.dropdownValues=null;
         };
 
         function selectAttribute(attribute) {
