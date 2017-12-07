@@ -28,8 +28,12 @@
         this.resetNewAttribute = resetNewAttribute;
         this.selectAttribute = selectAttribute;
         this.deleteAttribute = deleteAttribute;
+        this.isDropdownValue = isDropdownValue;
 
 
+        function isDropdownValue(input){
+            return input.toLowerCase()==="dropdown";
+        }
         function createNewAttribute() {
             if(self.newAttribute.type=='dropdown' && self.dropdownValues!== null){
                 self.dropdownValues.split(';').forEach(function (element) {

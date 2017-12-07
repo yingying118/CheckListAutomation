@@ -29,7 +29,7 @@ import java.util.*;
 @SpringBootApplication
 public class DemoApplication implements CommandLineRunner{
     private static final Logger logger = LoggerFactory.getLogger(DemoApplication.class);
-    private static final String FILE_NAME = "C:/Users/azhang/Documents/CheckListAutomation/src/main/resources/nicl_input.xlsx";
+    private static final String FILE_NAME = "C:/Users/azhang/Documents/CheckListAutomation/src/main/java/com/checklist/tmp/nicl_input.xlsx";
 
     public static void main(String[] args) {
         SpringApplication.run(DemoApplication.class, args);
@@ -56,94 +56,18 @@ public class DemoApplication implements CommandLineRunner{
     @Override
     public void run(String... strings) throws Exception {
         Group g1 = new Group("PCI");
-        Group g2 = new Group("GroupA");
         groupRepository.save(g1);
-        groupRepository.save(g2);
-
-        Attribute a11 = new Attribute("Reporting Name","text");
-        Attribute a12 = new Attribute("Issuer Name","text");
-        /*For (GICS) Sector*/
-        Attribute a13 = new Attribute("(GICS)Sector","dropdown","PI Definition:The main industry of the investment as defined by the Global Industry Classification Standard (GICS).");
-        Set a13options=new HashSet<AttributeValue>(){{
-            add(new AttributeValue("Materials",a13));
-            add(new AttributeValue("Energy",a13));
-            add(new AttributeValue("Utility",a13));
-            add(new AttributeValue("Industrials",a13));
-            add(new AttributeValue("Financials",a13));
-            add(new AttributeValue("Health Care",a13));
-            add(new AttributeValue("Telecommunication Services",a13));
-        }};
-
-        attributeValueService.saveAttributeValueSet(a13options);
-
-        /*For Level of Approval*/
-        Attribute a14 = new Attribute("Level of Approval","dropdown");
-        Set  a14options= new HashSet<AttributeValue>(){{
-            add( new AttributeValue("IC", a14));
-            add(new AttributeValue("PICI,CIC", a14));
-            add(new AttributeValue("PICI", a14));
-            add(new AttributeValue("SMD", a14));
-
-        }};
-        attributeValueService.saveAttributeValueSet(a14options);
-
-
-        Attribute a15 = new Attribute("Project Name of Investment","text");
-        Attribute a16 = new Attribute("Approved Amount","text");
-        /*For Legal Entity*/
-        Attribute a17 = new Attribute("CPPIB Investing Entity(Legal entity)","dropdown");
-        Set a17options= new HashSet<AttributeValue>(){{
-            add(new AttributeValue("CPPIB", a17));
-            add(new AttributeValue("CPPIB(Hong Kong) Limited", a17));
-            add(new AttributeValue("CII Luxco", a17));
-            add(new AttributeValue("CII US Holdings(1)", a17));
-
-        }};
-        attributeValueService.saveAttributeValueSet(a17options);
-        /*For Investment Type*/
-        Attribute a18 = new Attribute("Investment/Asset Type","dropdown");
-        Set a18options= new HashSet<AttributeValue>(){{
-            add(new AttributeValue("Leveraged Loans", a18));
-            add(new AttributeValue("High Yield Bonds", a18));
-            add(new AttributeValue("Mezzanie Debt", a18));
-            add(new AttributeValue("Equity)", a18));
-
-        }};
-        attributeValueService.saveAttributeValueSet(a18options);
-        /*For Investment Type*/
-        Attribute a19 = new Attribute("Deal Currency","dropdown","The currency used for funding and expected for all distributions. Please advise PIBM and IFPI if these currencies are not aligned");
-        Set a19options= new HashSet<AttributeValue>(){{
-            add(new AttributeValue("CAD", a19));
-            add(new AttributeValue("AUD", a19));
-            add(new AttributeValue("CNY", a19));
-            add(new AttributeValue("USD", a19));
-        }};
-        a19.setAttributeValues(a19options);
-        //attributeValueService.saveAttributeValueSet(a19options);
-
-        /*For Country of Exposure Type*/
-        Attribute a20 = new Attribute("Country of Exposure","dropdown","Currency which has the greatest impact on the value of the investment.");
-        Set a20options= new HashSet<AttributeValue>(){{
-            add(new AttributeValue("Austria", a20));
-            add(new AttributeValue("Canada", a20));
-            add(new AttributeValue("Egypt", a20));
-            add(new AttributeValue("Hong Kong", a20));
-        }};
-        a20.setAttributeValues(a20options);
-
-
         /*for static attributes reserved*/
-        Attribute a1 = new Attribute("Prepayment Schedule", "text", true);
-        Attribute a2 = new Attribute("Call Schedule", "text", true);
-        Attribute a3 = new Attribute("Agent Name", "text", true);
-        Attribute a4 = new Attribute("Contact Name", "text", true);
-        Attribute a5 = new Attribute("Telephone", "text", true);
+        Attribute a1 = new Attribute("Prepayment Schedule", "Text", true);
+        Attribute a2 = new Attribute("Call Schedule", "Text", true);
+        Attribute a3 = new Attribute("Agent Name", "Text", true);
+        Attribute a4 = new Attribute("Contact Name", "Text", true);
+        Attribute a5 = new Attribute("Telephone", "Text", true);
         Attribute a6 = new Attribute("Email", "text", true);
-        Attribute a7 = new Attribute("Prepared name", "text", true);
-        Attribute a8 = new Attribute("Prepared date", "text", true);
-        Attribute a9 = new Attribute("Reviewed name", "text", true);
-        Attribute a10 = new Attribute("Reviewed date", "text", true);
-        /*--------------------*/
+        Attribute a7 = new Attribute("Prepared name", "Text", true);
+        Attribute a8 = new Attribute("Prepared date", "Text", true);
+        Attribute a9 = new Attribute("Reviewed name", "Text", true);
+        Attribute a10 = new Attribute("Reviewed date", "Text", true);
 
         attributeRepository.save(a1);
         attributeRepository.save(a2);
@@ -155,16 +79,60 @@ public class DemoApplication implements CommandLineRunner{
         attributeRepository.save(a8);
         attributeRepository.save(a9);
         attributeRepository.save(a10);
-        attributeRepository.save(a11);
-        attributeRepository.save(a12);
-        attributeRepository.save(a13);
-        attributeRepository.save(a14);
-        attributeRepository.save(a15);
-        attributeRepository.save(a16);
-        attributeRepository.save(a17);
-        attributeRepository.save(a18);
-        attributeRepository.save(a19);
-        attributeRepository.save(a20);
+        /*--------------------*/
+        Attribute temp;
+        try {
+
+            FileInputStream excelFile = new FileInputStream(new File(FILE_NAME));
+            Workbook workbook = new XSSFWorkbook(excelFile);
+            Sheet datatypeSheet = workbook.getSheetAt(0);
+            Iterator<Row> iterator = datatypeSheet.iterator();
+            int count=0;
+            while (iterator.hasNext()) {
+
+                Row currentRow = iterator.next();
+                Iterator<Cell> cellIterator = currentRow.iterator();
+                System.out.println("----------------------------" + count++);
+                Cell name= cellIterator.next();
+                System.out.println("Name:" + name.getStringCellValue());
+                Cell type= cellIterator.next();
+                System.out.println("Type:" + type.getStringCellValue());
+                Cell description = cellIterator.next();
+                if(description.getStringCellValue().isEmpty()){
+                    temp = new Attribute(name.getStringCellValue(),type.getStringCellValue());
+                }
+                else{
+                    temp = new Attribute(name.getStringCellValue(),type.getStringCellValue(),description.getStringCellValue());
+                }
+                /* if it is dropdown type */
+                Set tempOptions;
+                if(type.getStringCellValue().equalsIgnoreCase("dropdown")){
+                    System.out.println("dropdown values:");
+                    tempOptions = new HashSet<AttributeValue>();
+                    while (cellIterator.hasNext()) {
+                        Cell currentCell = cellIterator.next();
+                        if(currentCell.getStringCellValue().isEmpty()){
+                            break;
+                        }
+                        System.out.print(currentCell.getStringCellValue()+";");
+                        tempOptions.add(new AttributeValue(currentCell.getStringCellValue(), temp));
+                    }
+                    temp.setAttributeValues(tempOptions);
+
+                }
+                attributeRepository.save(temp);
+                System.out.println();
+
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+/*
+
 
         Template t1 = new Template("Template T1", g1);
         Template t2 = new Template("Template T2", g2);
@@ -206,6 +174,8 @@ public class DemoApplication implements CommandLineRunner{
         }};
         sectionAttributeService.saveStaticSectionAttribute(finance_contact,t1,financeContactAttrs);
         /*static schedule section */
+
+/*
         Section schedule= new Section("Schedule", 100,t1,true);
         sectionRepository.save(schedule);
         t1.getSections().add(schedule);
@@ -229,7 +199,8 @@ public class DemoApplication implements CommandLineRunner{
 
         }};
 
-        sectionAttributeService.saveStaticSectionAttribute(audit, t1, auditAttr);
+        sectionAttributeService.saveStaticSectionAttribute(audit, t1, auditAttr);*/
+
 
     }
 }

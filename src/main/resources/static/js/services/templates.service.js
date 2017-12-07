@@ -24,6 +24,8 @@
             getGroupTemplates: getGroupTemplates,
             getTemplateAttributes: getTemplateAttributes,
             getNonStaticAttributes:getNonStaticAttributes,
+            getTemplateByID:getTemplateByID,
+            sortTemplateSectionAttributes:sortTemplateSectionAttributes,
         };
 
         return services;
@@ -31,6 +33,10 @@
         function getTemplates() {
             console.log('get templates');
             var url = urlBase + '/getalltemplates';
+            return $http.get(url);
+        }
+        function getTemplateByID(tid){
+            var url = urlBase + '/gettemplatebyid/' + tid;
             return $http.get(url);
         }
 
@@ -44,6 +50,7 @@
             };
             return $http.post(url, template, config);
         }
+
         function updateTemplate(template) {
             console.log('update template');
             console.log('template id: ' + template.id);
@@ -88,6 +95,11 @@
         function getTemplateAttributes(templateID){
             var url = urlBase + '/gettemplateattributes/' + templateID;
             return $http.get(url);
+        }
+        function sortTemplateSectionAttributes(templateData){
+            templateData.sections.forEach(function (section) {
+                section.sectionAttributes.sort(function(sa1,sa2){return sa1.order - sa2.order});
+            })
         }
     }
 

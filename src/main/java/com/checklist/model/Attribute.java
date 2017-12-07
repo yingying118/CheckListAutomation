@@ -18,6 +18,7 @@ public class Attribute{
     private Long id;
     private String name;
     private String type;
+    @Lob
     private String description;
     private boolean isStatic;
 

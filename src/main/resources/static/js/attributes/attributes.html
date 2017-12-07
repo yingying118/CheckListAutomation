@@ -37,7 +37,6 @@
                                           placeholder="Enter Attribute Dropdown Values" ng-model="attrCtrl.dropdownValues"></textarea>
                             </div>
 
-                            <pre>{{attrCtrl.newAttribute|json}}</pre>
 
                         </div>
 
@@ -70,9 +69,9 @@
                         <td>{{attr.name}}</td>
                         <td>{{attr.type}}</td>
                         <td >{{attr.description}}</td>
-                        <td ng-if="attr.type!=='dropdown'">
+                        <td ng-if=!attrCtrl.isDropdownValue(attr.type)>
                         </td>
-                        <td ng-if="attr.type=='dropdown'">
+                        <td ng-if=attrCtrl.isDropdownValue(attr.type)>
                             <div class="form-group">
                                 <select class="form-control">
                                     <option ng-repeat="value in attr.attributeValues | orderBy: 'value'">{{value.value}} </option>

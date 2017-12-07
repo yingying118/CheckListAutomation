@@ -5,18 +5,6 @@
     'use strict';
     var app= angular
         .module('checklistAutomationApp');
-        app.directive("dynamicName",function($compile){
-            return {
-                restrict:"A",
-                terminal:true,
-                priority:1000,
-                link:function(scope,element,attrs){
-                    element.attr('name', scope.$eval(attrs.dynamicName));
-                    element.removeAttr("dynamic-name");
-                    $compile(element)(scope);
-                }
-            }
-        });
         app.controller('NICLController', NICLController);
 
     NICLController.$inject = ['NICLService'];
@@ -57,7 +45,7 @@
         this.submitContent=submitContent;
         this.resetForm=resetForm;
         this.showReviewForm=showReviewForm;
-
+        this.isDropdownValue=isDropdownValue;
 
         self.inputValues=[];
 
@@ -72,7 +60,9 @@
          * Public functions
          */
 
-
+        function isDropdownValue(input){
+            return input.toLowerCase()==="dropdown";
+        }
 
         function clearAll(){
 

@@ -29,6 +29,7 @@ String base = "http://localhost:8080";
         RestTemplate restTemplate = new RestTemplate();
         return restTemplate.getForObject(base+"/groups/getallgroups",List.class);
     }
+
     @RequestMapping(value="/getnonstaticattributes", method = RequestMethod.GET)
     public List<Attribute> getAttributes()  {
         RestTemplate restTemplate = new RestTemplate();
@@ -50,6 +51,11 @@ String base = "http://localhost:8080";
         RestTemplate restTemplate = new RestTemplate();
         return restTemplate.getForObject(base+"/groups/getgrouptemplates/" + id, Set.class);
     }
+    @RequestMapping(value="/gettemplatebyid/{tid}", method = RequestMethod.GET)
+    public Template getTemplateByID(@PathVariable("tid") Long tid)  {
+        return templateService.findTemplateByID(tid);
+    }
+
 
 
 

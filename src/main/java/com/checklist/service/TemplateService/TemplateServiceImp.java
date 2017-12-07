@@ -73,7 +73,6 @@ public class TemplateServiceImp implements TemplateService {
 
             List<Attribute> scheduleAttrs = new ArrayList<Attribute>(){{
                 try{
-                    add(attributeService.findStaticAttrByName("Prepayment Schedule"));
                     add(attributeService.findStaticAttrByName("Call Schedule"));
                 }catch (Exception e){
                     throw e;

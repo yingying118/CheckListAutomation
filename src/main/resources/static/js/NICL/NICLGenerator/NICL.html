@@ -110,13 +110,13 @@
                                     </a>
 
                                 </td>
-                                <td ng-if="section.sectionAttributes[$index].attribute.type=='text'">
+                                <td ng-if=!NICLCtrl.isDropdownValue(section.sectionAttributes[$index].attribute.type)>
                                     <input class="form-control" type="text" required
                                            id="{{section.sectionAttributes[$index].attribute.name}}"
                                            data-ng-model="section.sectionAttributes[$index].attribute.inputValue"
                                            placeholder="Please Enter {{section.sectionAttributes[$index].attribute.name}} value"/>
                                 </td>
-                                <td ng-if="section.sectionAttributes[$index].attribute.type=='dropdown'">
+                                <td ng-if=NICLCtrl.isDropdownValue(section.sectionAttributes[$index].attribute.type)>
                                     <select class="form-control"
                                             data-ng-model="section.sectionAttributes[$index].attribute.inputValue"
                                             required>
@@ -135,13 +135,13 @@
                                         <span class="glyphicon glyphicon-info-sign"></span>
                                     </a>
                                 </td>
-                                <td ng-if="section.sectionAttributes[$index+1].attribute.type=='text'">
+                                <td ng-if=!NICLCtrl.isDropdownValue(section.sectionAttributes[$index+1].attribute.type)>
                                     <input class="form-control" type="text" required
                                            id="{{section.sectionAttributes[$index+1].attribute.name}}"
                                            data-ng-model="section.sectionAttributes[$index+1].attribute.inputValue"
                                            placeholder="Please Enter {{section.sectionAttributes[$index+1].attribute.name}} value"/>
                                 </td>
-                                <td ng-if="section.sectionAttributes[$index+1].attribute.type=='dropdown'">
+                                <td ng-if=NICLCtrl.isDropdownValue(section.sectionAttributes[$index+1].attribute.type)>
                                     <select class="form-control"
                                             data-ng-model="section.sectionAttributes[$index+1].attribute.inputValue"
                                             required>
@@ -287,10 +287,8 @@
             <button type="reset" value="Reset" ng-click="NICLCtrl.resetForm()" class="btn btn-default">Reset</button>
             <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#goBackModal">Go Back
             </button>
-            <pre>{{NICLCtrl.staticAttributeVO|json}}</pre>
             <br>
 
-            <pre>{{NICLCtrl.templateVO|json}}</pre>
 
         </div>
 
@@ -454,7 +452,6 @@
 
             <button type="submit" class="btn btn-primary" ng-click="NICLCtrl.submitContent()">Confirm</button>
             <button type="button" ng-click="NICLCtrl.backToForm()" class="btn btn-default">Go Back</button>
-            <pre>{{NICLCtrl.NICLContentList|json}}</pre>
         </div>
 
     </div>

@@ -1,0 +1,252 @@
+<div class="container">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">Template List</h3>
+        </div>
+        <div class="panel-body">
+            <fieldset>
+                <legend>Group List</legend>
+                <form role="form">
+                    <div class="row">
+
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label>Please Select your group</label>
+                                <select class="form-control" ng-model="tempListCtrl.selectedGroupID"
+                                        ng-change="tempListCtrl.getGroupTemplates()">
+                                    <option ng-repeat="group in tempListCtrl.groups | orderBy:'id'"
+                                            value="{{group.id}}">
+                                        {{group.name}}
+                                    </option>
+                                </select>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </form>
+            </fieldset>
+
+            <fieldset>
+                <legend>Template List</legend>
+                <form role="form">
+                    <div>
+
+
+                        <table class="table table-striped" ng-model="tempListCtrl.templates">
+                            <thead>
+                            <tr>
+                                <th>Template ID</th>
+                                <th>Template Name</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="template in tempListCtrl.templates | orderBy:'id'">
+                                <td>{{template.id}}</td>
+                                <td>
+                                    <a href="#" ng-click="tempListCtrl.getTemplateByID(template)">{{template.name}}</a>
+                                </td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+
+
+                    </div>
+
+                </form>
+            </fieldset>
+        </div>
+    </div>
+
+    <div class="panel panel-default" ng-if="!tempListCtrl.isEmpty(tempListCtrl.selectedTemplate)">
+        <div class="panel-heading">
+            <h3 class="panel-title">Attribute List</h3>
+        </div>
+        <div class="panel-body" ng-model="tempListCtrl.selectedTemplate">
+            <fieldset>
+                <legend>Template: {{tempListCtrl.selectedTemplate.name}}</legend>
+                <div class="panel-body">
+                    <table class="resultform"
+                           ng-repeat="section in tempListCtrl.selectedTemplate.sections | orderBy:'section_order'"
+                           ng-if="!section.static" width="100%">
+                        <tbody>
+                        <tr class="title">
+                            <th><h1 class="panel-title">{{section.name|uppercase}}</h1></th>
+                        </tr>
+                        <tr>
+                            <td>
+                                <table width="100%">
+                                    <tbody ng-repeat="sectionAttribute in section.sectionAttributes | orderBy:'order'">
+                                    <tr ng-if="$even">
+                                        <td class="attrname">
+                                            {{section.sectionAttributes[$index].attribute.name}}
+
+                                            <a ng-if="section.sectionAttributes[$index].attribute.description" href="#"
+                                               data-toggle="tooltip"
+                                               title="{{section.sectionAttributes[$index].attribute.description}}">
+                                                <span class="glyphicon glyphicon-info-sign"></span>
+                                            </a>
+
+                                        </td>
+                                        <td ng-if=!tempListCtrl.isDropdownValue(section.sectionAttributes[$index].attribute.type)>
+                                            <input disabled class="form-control" type="text"
+                                                   />
+                                        </td>
+                                        <td ng-if=tempListCtrl.isDropdownValue(section.sectionAttributes[$index].attribute.type)>
+                                            <select disabled class="form-control">
+
+                                            </select>
+                                        </td>
+                                        <td class="attrname">
+                                            {{section.sectionAttributes[$index+1].attribute.name}}
+                                            <a ng-if="section.sectionAttributes[$index+1].attribute.description" href="#"
+                                               data-toggle="tooltip"
+                                               title="{{section.sectionAttributes[$index+1].attribute.description}}">
+                                                <span class="glyphicon glyphicon-info-sign"></span>
+                                            </a>
+                                        </td>
+                                        <td ng-if=!tempListCtrl.isDropdownValue(section.sectionAttributes[$index+1].attribute.type)>
+                                            <input disabled class="form-control" type="text" />
+                                        </td>
+                                        <td ng-if=tempListCtrl.isDropdownValue(section.sectionAttributes[$index+1].attribute.type)>
+                                            <select disabled class="form-control">
+
+                                            </select>
+                                        </td>
+
+
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+
+                    <table class="resultform" width="100%"
+                           ng-repeat="section in tempListCtrl.selectedTemplate.sections | orderBy:'section_order'"
+                           ng-if="section.static">
+                        <!--section for Schedule -->
+                        <tbody ng-if="section.name=='Schedule'">
+                        <tr class="title">
+                            <th><h1 class="panel-title">SCHEDULE</h1></th>
+                        </tr>
+                        <tr>
+                            <td>
+                                <table width="100%">
+
+                                    <tbody ng-repeat="sectionAttribute in section.sectionAttributes | orderBy:'order'">
+
+                                    <tr ng-if="$even">
+                                        <td style="text-align: center" colspan="2">{{section.sectionAttributes[$index].attribute.name}}</td>
+
+                                        <td style="text-align: center" colspan="2">{{section.sectionAttributes[$index+1].attribute.name}}</td>
+
+                                    </tr>
+                                    <tr ng-if="$even">
+                                        <td class="attrname">Date</td>
+                                        <td>
+                                            <input disabled class="form-control" type="text"/>
+                                        </td>
+                                        <td class="attrname">Date</td>
+                                        <td>
+                                            <input disabled class="form-control" type="text"/>
+                                        </td>
+
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+
+                        </tbody>
+                        <!--section for Schedule end-->
+                        <!--section for Finance contact end-->
+                        <tbody ng-if="section.name=='Finance Contact'">
+
+                        <tr class="title">
+                            <th><h1 class="panel-title">FINANCE CONTACT(LOAN/ ADMIN AGENT)</h1></th>
+                        </tr>
+                        <tr>
+                            <td>
+                                <table width="100%">
+                                    <tbody ng-repeat="sectionAttribute in section.sectionAttributes | orderBy:'order'">
+
+                                    <tr >
+                                        <td class="attrname">{{sectionAttribute.attribute.name}}</td>
+                                        <td style="width:75%">
+                                            <input disabled class="form-control" type="text" required/>
+                                        </td>
+
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr class="title">
+                            <th><h1 class="panel-title">COMMENTS</h1></th>
+                        </tr>
+                        <tr>
+                            <td width="100%">
+                                <p>
+                                    Please attach investment recommendation, wire instructions, appropriate internal approvals, singed purchase,
+                                    legal agreements, and flowchart showing the structure of the investment. Please attach a term sheet which includes, a summary
+                                    of debt structure of the investment, the structure of hte investing group (partnership or direct interest), the number of
+                                    certificates expected & where they will be held.
+                                </p>
+                            </td>
+                        </tr>
+                        </tbody>
+
+                        <tbody ng-if="section.name=='Audit'">
+                        <tr class="title">
+                            <td style="text-align: center">
+                                PREPARED BY:
+                            </td>
+                            <td style="text-align: center">
+                                REVIEWED BY:
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <table width="100%">
+
+                                    <tbody ng-repeat="sectionAttribute in section.sectionAttributes | orderBy:'order'">
+
+
+                                    <tr ng-if="$even">
+                                        <td class="attrname" colspan="2">{{section.sectionAttributes[$index].attribute.name}}</td>
+                                        <td><input disabled class="form-control" type="text"/></td>
+                                        <td class="attrname" colspan="2">{{section.sectionAttributes[$index+1].attribute.name}}</td>
+                                        <td><input disabled class="form-control" type="text"/></td>
+                                    </tr>
+
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+
+
+
+                </div>
+
+
+            </fieldset>
+
+
+        </div>
+
+    </div>
+</div>
+
+
+
+
+
+
+

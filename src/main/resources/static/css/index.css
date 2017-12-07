@@ -189,8 +189,8 @@ th {
   *,
   *:before,
   *:after {
-    background: transparent !important;
-    color: #000 !important;
+    background: transparent ;
+    color: #000 ;
     box-shadow: none !important;
     text-shadow: none !important; }
   a,
@@ -242,11 +242,20 @@ th {
     {
         border: 1px solid black !important;
     }
-    .resultform .title *th{
+    .resultform .title th{
         text-align: center !important;
         background: black !important;
-        color:white !important;
+
     }
+  .resultform .title td{
+    text-align: center !important;
+    background: black !important;
+    color: #FFF !important;
+  }
+  .btn{
+    display: none !important;
+  }
+
     .resultform .attrname{
         background-color: darkgray;
         font-weight:bold;
@@ -254,6 +263,11 @@ th {
         padding-right: 6px;
 
     }
+
+
+  h1 {
+    color: #FFF !important;
+  }
 }
 
 @font-face {

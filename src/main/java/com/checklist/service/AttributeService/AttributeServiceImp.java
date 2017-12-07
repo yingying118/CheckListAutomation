@@ -30,14 +30,14 @@ public class AttributeServiceImp implements AttributeService {
     public Attribute saveTextAttribute(Attribute attri) {
         Attribute newAttr = new Attribute(attri.getName());
         newAttr.setDescription(attri.getDescription());
-        newAttr.setType("text");
+        newAttr.setType("Text");
         return attributeRepository.save(newAttr);
     }
     @Override
     public Attribute saveDropdownAttribute(Attribute attri) {
         Attribute newAttr = new Attribute(attri.getName());
         newAttr.setDescription(attri.getDescription());
-        newAttr.setType("dropdown");
+        newAttr.setType("Tropdown");
         Set<AttributeValue> avs= new HashSet<AttributeValue>();
         for(AttributeValue av: attri.getAttributeValues()){
             if(!av.getValue().isEmpty()){

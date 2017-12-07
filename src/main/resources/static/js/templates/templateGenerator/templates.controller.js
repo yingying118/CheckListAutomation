@@ -28,7 +28,6 @@
         };
 
 
-
         getAllGroups();
         getNonStaticAttributes();
         initPage();
@@ -104,8 +103,6 @@
                 }
             );
         }
-
-
 
 
 

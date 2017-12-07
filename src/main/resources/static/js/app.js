@@ -18,17 +18,17 @@ app.config(function($locationProvider, $routeProvider) {
             controller:'attributesController as attrCtrl'
     }).
     when('/templates',{
-        templateUrl:"./js/templates/templates.html",
+        templateUrl:"./js/templates/templateGenerator/templates.html",
         controller:'templatesController as tempCtrl'}).
     when('/templateList',{
-        templateUrl:"./js/templates/templateList.html",
+        templateUrl:"./js/templates/templateList/templateList.html",
         controller:'templateListController as tempListCtrl'}).
     when('/NICL',{
-        templateUrl:"./js/NICL/NICL.html",
+        templateUrl:"./js/NICL/NICLGenerator/NICL.html",
         controller:'NICLController as NICLCtrl'
     }).
     when('/NICLList',{
-        templateUrl:"./js/NICL/NICLList.html",
+        templateUrl:"./js/NICL/NICLList/NICLList.html",
         controller:'NICLListController as NICLListCtrl'
     }).
     when('/reviewForm',{
